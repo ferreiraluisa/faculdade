@@ -1,0 +1,56 @@
+COMPLEXIDADE PARTE 1 - AULA 19/07/2021
+    _O foco da disciplina é analisar teoricamente o tempo de processamento. Em geral, quannto maior o tamanho da "entrada" do algoritmo, maior o tempo de processamento. Assim, vamos analisar o algoritmo em função do "tamanho" n da entrada. 
+    _É complicado estimar o tempo de processamento de um algoritmo, porque depende de qual computador será executado o programa, da qualidade de implementação do programa, da linguagem de programação etc.
+        OBS.: cpu time-> real tempo que o programa usou a cpu 
+    wall time->o tempo que demorou pro programa funcionar(as vezes esse wall time não é tão justo)
+    _Assim, para estimar o tempo de processamento, o que se faz é calcular o número de vezes que a operação básica do algoritmo é executada.
+        OBS.:O QUE É OPERAÇÃO BÁSICA?É a mais importante e que mais contribui para o tempo de processamento.
+            ex.:
+                double x = 3.14*5.2*sqrt(10.5)*pow(23.2,44.2);
+                int soma = 0;
+                for(int i=0;i<10000;i++){
+                    double y = 3.14*5.2*sqrt(10.5)*pow(23.2,44.2) + sin(12.2*i);
+                    for(int j=0;j<1000;j++) soma++;
+                }
+                A OPERAÇÃO BÁSICA NO CÓDIGO ABAIXO É A SOMA, PORQUE É A QUE MAIS SE REPETE E GASTA TEMPO 
+    _O tempo de algoritmo pode ser estimado da seguinte forma:
+        t(n) ~ top * c(n)
+            t(n) -> tempo de execução
+            top -> tempo da operação básica 
+            c(n) -> numero de vezes que a operação básica é executada
+
+COMPLEXIDADE PARTE 2 - AULA 22/07/2021
+    _NOTACAO ASSINTÓTICA: A análise de eficiência de algoritmos normalmente se concentra na "ordeme de complexidade" da operação básica do algoritmo. Para comparar essa ordem, são utilizadas três notações: O, Ω, Θ(nessa disciplina vamos estudar de maneira informal)
+        ->O(g(n)) -> conjunto de todas as funções com ordem de crescimento menor ou igual a g(n).
+        ->Ω(g(n)) -> conjunto de todas as funções com ordem de crescimento maior ou igual a g(n).
+        ->Θ(dsg(n)) -> conjunto de todas as funções com ordem de crescimento igual a g(n).
+        **vamos nos concentrar na notação O!
+    _PROPRIEDADES DE NOTAÇÃO ASSINTÓTICA:
+        1-t(n) ∈ O(t(n))
+            ex.: n³ ∈ O(n³)
+        2-Se t(n) ∈ O(g(n)) e g(n) ∈ O(h(n)), então t(n) ∈ O(h(n))
+            ex.: n ∈ O(n²) e n² ∈ O(n³) -> n ∈ O(n³)
+        3-Se t1(n) ∈ O(g1(n)) e t2(n) ∈ O(g2(n)), então t1(n) + t2(n) ∈ O(max{g1(n),g2(n)})
+            ex.: n²∈ O(n²),n³∈O(n³) -> n²+n³ ∈ O(max{n²,n³}) = O(n³)
+        4-Toda função logarítmica pertenca a classe O(log(n)) independente da base(>1) do logaritmo.
+        5-Todos os polinômios de grau k pertencem a classe O(n^k)
+            ex.: n³ + 5n² + 1000 ∈ O(n³)
+    
+    _CLASSES BÁSICAS DE EFICIÊNCIA:Mesmo com a notação assintótica agrupando funções que diferem por múltiplos constantes, ainda assim há infinitas "classes de complexidade"(ec.:funções do tipo a^n pertencem a difrentes classes dependendo d valor de a). Porém, a MAIORIA dos algoritmos se enquadra em poucas classes básicas de eficiência.
+                CLASSE                    NOME 
+                1              |        constante
+                log(n)         |        logarítmica
+                n              |        linear
+                n logn(n)      |        "n-log-n"
+                n²             |        quadrática
+                n³             |        cúbica
+                2^n            |        exponencial
+                n!             |        fatorial
+    
+     _Em geral, um algoritmo de classe mais baixa (O(n)) é muito mais eficiente que um algoritmo de classe mais alta (O(n³))
+    
+    OBS.:ALGORITMOS DE COMPLEXIDADE N!
+        O tempo cresce n vezes o tempo anterior. EX.: n = 12, o tempo de execução é 12xtempo de execucao de 11, isso porque 12! é igual a 12.11!
+
+COMPLEXIDADE PARTE 3 - 26/07/21
+    _
