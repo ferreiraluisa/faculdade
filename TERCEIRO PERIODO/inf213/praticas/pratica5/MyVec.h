@@ -54,7 +54,7 @@ public:
 
 
 private:
-	?????? data; //declare o membro de dados data, que devera armazenar os elementos da lista
+	T *data; //declare o membro de dados data, que devera armazenar os elementos da lista
 	int dataSize; //quantos elementos ha na lista?
 	int dataCapacity; //quantos elementos atualmente cabem na lista? 
 
@@ -63,9 +63,15 @@ private:
 	void resizeCapacity(int newCapacity);
 };
 
+//--------------------IMPLEMENTAR ESSE-----------------------------------
 template<class T>
 void MyVec<T>::push_back(const T&elem) {
-	//Implemente esta funcao! (nao reutilize a funcao "insere")
+	if(dataSize>= dataCapacity){
+		if(dataCapacity == 0) resizeCapacity(1);
+		else resizeCapacity(2 * dataCapacity);
+	}
+	data[size()] = elem;
+	dataSize++;
 }
 
 template<class T>
@@ -90,7 +96,7 @@ void MyVec<T>::insert(const T&elem,int pos) {
 	}
 
 	if(dataSize == dataCapacity) { //preciso redimensionar?
-		if(dataCapacity ==0) //Exercicio: Por que e' preciso testar isso?
+		if(dataCapacity ==0) //Exercicio: Por que e' preciso testar isso? Porque se nao vai ser sempre 0 ja que o argumento dela vai ser dobrar a capacidade 2*0 = 0
 			resizeCapacity(1);
 		else
 			resizeCapacity(dataCapacity*2);
@@ -109,7 +115,7 @@ void MyVec<T>::clear() {
 	create();
 }
 
-
+//--------------------IMPLEMENTAR ESSE-----------------------------------
 template<class T>
 void MyVec<T>::resizeCapacity(int newCapacity) {
 	//implemente esta funcao
@@ -120,8 +126,13 @@ void MyVec<T>::resizeCapacity(int newCapacity) {
 	//data=[1,2,3,,], dataSize=3, dataCapacity=5 (vetor de capacidade 5, com 3 elementos ocupados)
 	//se chamarmos resizeCapacity(10), os membros de dados deverao ter os seguintes valores:
 	//data=[1,2,3,,,,,,,], dataSize=3, dataCapacity=10
+	if(newCapacity <= dataCapacity) return ;
 
-
+	T *oldData = data;
+	data = new T[newCapacity];
+	for(int i=0;i<size();i++) data[i] = oldData[i];
+	delete[] oldData;
+	dataCapacity = newCapacity;
 }
 
 template<class T>
@@ -141,26 +152,31 @@ MyVec<T>::MyVec() {
 	create();
 }
 
+//--------------------IMPLEMENTAR ESSE-----------------------------------
 template<class T>
 MyVec<T>::MyVec(int n, const T&init) {
 	//Implemente esta funcao:
 	//Cria um vetor de tamanho e capacidade n, onde todos os n elementos valem "init"
+	if(n > dataCapacity) resizeCapacity(n);
+	data =  new T[dataCapacity];
+	for(int i=0;i<n;i++) data[i] = init;
 
 }
 
-
+//--------------------IMPLEMENTAR ESSE-----------------------------------
 //Construtor de copia
 template<class T>
 MyVec<T>::MyVec(const MyVec &other) {
 	//Implemente esta funcao
 	//Dica: nao duplique codigo! (esta funcao deve ser escrita utilizando apenas 2 linhas de codigo!)
-
+	create();
+	*this = other;
 }
 
 template<class T>
 MyVec<T> & MyVec<T>::operator=(const MyVec &other) {
 	if(this==&other) return *this; 
-	destroy(); //Exercicio: por que precisamos disso?
+	destroy(); //Exercicio: por que precisamos disso? 
 	dataCapacity = other.dataCapacity;
 	dataSize = other.dataSize;
 	//data = other.data; //por que nao podemos fazer isso?
