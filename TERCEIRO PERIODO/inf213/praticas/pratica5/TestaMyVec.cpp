@@ -41,6 +41,7 @@ int main() {
   for(int i=0;i<100;i++) assert(vetorInt[i]==i);
 
   cout << "Utilizando outro construtor para criar um vetor com 10000 elementos" << endl;
+  cout<<"passou dessa fase"<<endl;
   MyVec<int> vetorInt2(10000,99);
   for(int i=0;i<10000;i++) assert(vetorInt2[i]==99);
   assert(vetorInt2.size()==10000);

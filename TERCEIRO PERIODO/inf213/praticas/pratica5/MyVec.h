@@ -51,6 +51,7 @@ public:
 
 	void empty() const {return size() == 0;};
 	int size() const {return dataSize;};
+	int eraseMatchingElements(T elem);
 
 
 private:
@@ -157,8 +158,8 @@ template<class T>
 MyVec<T>::MyVec(int n, const T&init) {
 	//Implemente esta funcao:
 	//Cria um vetor de tamanho e capacidade n, onde todos os n elementos valem "init"
-	if(n > dataCapacity) resizeCapacity(n);
-	data =  new T[dataCapacity];
+	dataSize = dataCapacity = n;
+	data =  new T[n];
 	for(int i=0;i<n;i++) data[i] = init;
 
 }
@@ -192,6 +193,18 @@ std::ostream& operator<<(std::ostream &out, const MyVec<T2> &v) {
 	for(int i=0;i<v.size();i++) out << v.data[i] << " ";
 	out << "\n";
 	return out;
+}
+template<class T>
+int MyVec<T>::eraseMatchingElements(T elem){
+	int contador = 0;
+	for(int i=0;i<size();i++){
+		if(data[i] == elem){
+			contador++;
+			for(int j=i;j<size()-1;j++) data[j] = data[j++]; //A pior possibilidade desse caso é O(n)
+		}
+	}
+	dataSize -= contador;
+	return contador;
 }
 
 #endif
