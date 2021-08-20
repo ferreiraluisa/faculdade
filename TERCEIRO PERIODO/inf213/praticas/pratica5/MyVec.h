@@ -52,6 +52,7 @@ public:
 	void empty() const {return size() == 0;};
 	int size() const {return dataSize;};
 	int eraseMatchingElements(T elem);
+	void sortedInsert(T elem);
 
 
 private:
@@ -196,15 +197,32 @@ std::ostream& operator<<(std::ostream &out, const MyVec<T2> &v) {
 }
 template<class T>
 int MyVec<T>::eraseMatchingElements(T elem){
-	int contador = 0;
+	int cont = 0;
 	for(int i=0;i<size();i++){
 		if(data[i] == elem){
-			contador++;
-			for(int j=i;j<size()-1;j++) data[j] = data[j++]; //A pior possibilidade desse caso é O(n)
+			cont++;
+			for(int j = i;j<size()-1;j++) data[j] = data[j+1];
+			dataSize--;
+			i--;
 		}
 	}
-	dataSize -= contador;
-	return contador;
+	return cont;
 }
 
+template<class T>
+void MyVec<T>::sortedInsert(T elem){
+	if(size()==0) insert(elem,0);
+	else{
+		for(int i=0;i<size();i++){
+			if(data[i]>=elem){
+				insert(elem,i);
+				return;
+			} 	
+		}	
+		insert(elem,size());
+		return;
+	}
+	
+	
+}
 #endif
