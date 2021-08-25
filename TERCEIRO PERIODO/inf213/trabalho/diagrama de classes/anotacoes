@@ -1,0 +1,16 @@
+- LER O ARQUIVO CVS DO PRECO E PEGAR O NOME DA EMPRESA + O PRECO FINAL DA ACAO NAQUELE DIA ESPECIFICO(ou seja, salvar 3 dados: nome da empresa, preco final, data)
+- LER ARQUIVO CVS DO GRUPAMENTO E VER A EMPRESA A DATA E QUAL SPLIT QUE ELA SOFREU(ou seja, salvar 3 dados: nome da empresa, preco final, data)
+- LER ARQUIVO CVS DOS DIVIDENDOS E VER A EMPRESA A DATA E SE TEVE DIVIDENDOS NO DIA(ou seja, salvar 3 dados: nome da empresa, dividendo, data)
+- LER ARQUIVO DE OPERACOES:
+C : compra
+custo de compra = numero de acoes * preco da acao de cada investidor
+V : venda
+Q : consulta
+mostra as cotacoes das empresas no dia 
+
+arquivos que comecam com D,F,M
+
+D - > relatorio detalhado
+F - > 
+M - >
+

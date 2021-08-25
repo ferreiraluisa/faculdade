@@ -5,7 +5,8 @@ Fechamento do mes (2021-5-31)
 Acao      Quantidade    Valor Atual    Custo Total     Dividendos      Operacoes
 ENBR3            100           1865           1827            112              0
 --------------------------------------------------------------------------------
-Lucro total do mes:                                           112              0
+Lucro total do mes:                                           112              0 o
+                                                                                
 
 Totais ate hoje:
 --------------------------------------------------------------------------------------------------------------
