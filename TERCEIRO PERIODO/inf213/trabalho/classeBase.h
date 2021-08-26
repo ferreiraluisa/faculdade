@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <assert.h>
 #include "preco.h"
 #include "dividendo.h"
@@ -68,14 +69,15 @@ class classeBase{
         std::string _arquivoDividendos;
         std::string _arquivoSplit;
         std::string _arquivoOperacoes;
-        int sizePreco = 0;
-        int sizeDividendo = 0;
-        int sizeSplit = 0;
-        int sizeOperacoes = 0;
+        int sizePreco;
+        int sizeDividendo;
+        int sizeSplit;
+        int sizeOperacoes;
         Preco *precoAcoes;
         Dividendo *dividendoAcoes;
         Split *splitAcoes;
         Operacoes *operacoesBolsa;
+        char auxOperacaoPrincipal;
     public:
         //construtor
         classeBase(std::string arquivoPreco,std::string arquivoDividendos,std::string arquivoSplit,std::string arquivoOperacoes);
@@ -97,11 +99,11 @@ class classeBase{
         void ordenaPreco(Preco *v, int n);
         void ordenaDividendo(Dividendo *v, int n);
         void ordenaSplit(Split *v, int n);
-        void ordenaOperacoes(Operacoes *v, int n);
         void ordenaArquivos();
-
+        //funcoes de saida
+        int consulta(int i);
         //busca binaria
-        int BuscaBin(Preco *array,int begin, int end, std::string chaveTicker, int chaveData); //Para Consulta Q
+        int BuscaBin(Preco *array,int begin, int end, std::string chaveTickerData); //Para Consulta Q
         //getters
         Preco* getArrayPreco();
         Dividendo *getArrayDividendo();
@@ -109,9 +111,13 @@ class classeBase{
         Operacoes *getArrayOperacoes();
         int getSizePreco();
         int getSizeDividendo();
+        int getSizeSplit();
+        int getSizeOperacoes();
+        char getAuxOperacao(); //ve qual é a operacao principal do arquivo operacoes(me refiro a operação principal o char da primeira linha do arquivo);
+
         //funcoes para teste
         void imprime();
-        void assertSort();
+        void imprime2();
 
 };
  

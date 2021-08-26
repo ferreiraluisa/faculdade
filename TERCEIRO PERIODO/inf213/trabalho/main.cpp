@@ -1,4 +1,4 @@
-#include "classebase.h"
+#include "classeBase.h"
 #include <iostream>
 #include <cmath>
 #include <assert.h>
@@ -6,16 +6,19 @@
 #include <iomanip>
 #include <sstream>
 
-int main(){
-    classeBase objeto("precos.csv","dividendos.csv","split.csv","operacoes.csv");
-    objeto.lerPreco();
-    objeto.lerDividendos();
-    //objeto.lerOperacoes();
-    //objeto.lerSplits();
-    //objeto.ordenaArquivos();
 
-    objeto.imprime();
+int main(int argc, char **argv){
+    classeBase controle(argv[1],argv[2],argv[3],argv[4]);
+    controle.lerArquivos();
+    controle.ordenaArquivos();
 
-    return 1;
-    
+
+    if(controle.getAuxOperacao() == 'Q'){
+        for(int i=0;i<controle.getSizeOperacoes();i++){
+            std::cout<<controle.consulta(i)<<"\n";
+        
+        }
+    }
+    return 0;
+
 }
