@@ -4,7 +4,7 @@
 //construtores
 Split::Split(){}
 
-Split::Split(std::string ticker,int data, std::string split):
+Split::Split(string ticker,string data, string split):
     _ticker(ticker) , _data(data) , _split(split) {}
 
 //destrutor 
@@ -12,9 +12,12 @@ Split::~Split(){}
 
 
 //getters
-std::string Split::getTicker(){
+string Split::getTicker(){
     return this->_ticker;
 }
-int Split::getData(){
+string Split::getData(){
     return this->_data;
+}
+string Split::getSplit(){
+    return this->_split;
 }

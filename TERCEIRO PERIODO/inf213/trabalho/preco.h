@@ -1,21 +1,22 @@
 #ifndef PRECO_H
 #define PRECO_H
 #include <string>
+using namespace std;
 
 class Preco{
     private:
-        std::string _ticker;
-        int _data;
+        string _ticker;
+        string _data;
         int _preco;
     public:
         //construtores
         Preco();
-        Preco(std::string ticker,int data, int preco);
+        Preco(string ticker,string data, int preco);
         //destrutores
         ~Preco();
         //getters
-        int getData();
-        std::string getTicker();
+        string getData();
+        string getTicker();
         int getPreco();
 };
 

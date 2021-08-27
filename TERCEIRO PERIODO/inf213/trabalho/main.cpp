@@ -11,6 +11,8 @@ int main(int argc, char **argv){
     classeBase controle(argv[1],argv[2],argv[3],argv[4]);
     controle.lerArquivos();
     controle.ordenaArquivos();
+    //controle.imprime();
+    //acao.imprime();
 
 
     if(controle.getAuxOperacao() == 'Q'){

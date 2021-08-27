@@ -1,20 +1,22 @@
 #ifndef SPLIT_H
 #define SPLIT_H
 #include <string>
+using namespace std;
 class Split{
     private:
-        std::string _ticker;
-        int _data;
-        std::string _split;
+        string _ticker;
+        string _data;
+        string _split;
     public:
         //construtores
         Split();
-        Split(std::string ticker,int data, std::string split);
+        Split(string ticker,string data, string split);
         //destrutor
         ~Split();
         //getters
-        std::string getTicker();
-        int getData();
+        string getSplit();
+        string getTicker();
+        string getData();
 
 
 };

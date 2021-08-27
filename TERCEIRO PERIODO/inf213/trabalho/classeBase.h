@@ -10,7 +10,6 @@
 #include "split.h"
 #include "operacoes.h"
 
-
 //functors 
 
 class ComparaPrecosTicket {
@@ -65,10 +64,10 @@ public:
 
 class classeBase{
     private:
-        std::string _arquivoPreco;
-        std::string _arquivoDividendos;
-        std::string _arquivoSplit;
-        std::string _arquivoOperacoes;
+        string _arquivoPreco;
+        string _arquivoDividendos;
+        string _arquivoSplit;
+        string _arquivoOperacoes;
         int sizePreco;
         int sizeDividendo;
         int sizeSplit;
@@ -80,7 +79,8 @@ class classeBase{
         char auxOperacaoPrincipal;
     public:
         //construtor
-        classeBase(std::string arquivoPreco,std::string arquivoDividendos,std::string arquivoSplit,std::string arquivoOperacoes);
+        classeBase();
+        classeBase(string arquivoPreco,std::string arquivoDividendos,std::string arquivoSplit,std::string arquivoOperacoes);
         //destrutor
         ~classeBase();
         //casting
@@ -102,6 +102,8 @@ class classeBase{
         void ordenaArquivos();
         //funcoes de saida
         int consulta(int i);
+        void simulaBolsa();
+        void saidaD();
         //busca binaria
         int BuscaBin(Preco *array,int begin, int end, std::string chaveTickerData); //Para Consulta Q
         //getters
@@ -114,6 +116,9 @@ class classeBase{
         int getSizeSplit();
         int getSizeOperacoes();
         char getAuxOperacao(); //ve qual é a operacao principal do arquivo operacoes(me refiro a operação principal o char da primeira linha do arquivo);
+        //checar eventos
+        bool dividendos(string ticker, string data);
+        bool split(string ticker, string data);
 
         //funcoes para teste
         void imprime();

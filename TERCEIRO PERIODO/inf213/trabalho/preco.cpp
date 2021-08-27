@@ -3,7 +3,7 @@
 //construtores
 Preco::Preco(){}
 
-Preco::Preco(std::string ticker, int data, int preco) : _ticker(ticker), _data(data), _preco(preco) {}
+Preco::Preco(std::string ticker, string data, int preco) : _ticker(ticker), _data(data), _preco(preco) {}
 
 //destrutores
 Preco::~Preco() {}
@@ -13,7 +13,7 @@ std::string Preco::getTicker(){
     return this->_ticker;
 }
 
-int Preco::getData(){
+string Preco::getData(){
     return this->_data;
 }
 

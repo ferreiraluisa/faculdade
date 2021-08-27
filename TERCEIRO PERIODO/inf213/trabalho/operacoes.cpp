@@ -3,7 +3,7 @@
 //construtores
 Operacoes::Operacoes(){}
 
-Operacoes::Operacoes(std::string ticker,int data,char operacaoPrincipal,char operacaoSecundaria, int quantidade):
+Operacoes::Operacoes(string ticker,string data,char operacaoPrincipal,char operacaoSecundaria, int quantidade):
     _ticker(ticker) , _data(data) , _operacaoPrincipal(operacaoPrincipal), _operacaoSecundaria(operacaoSecundaria), _quantidade(quantidade) {}
 
 //destrutor
@@ -13,9 +13,15 @@ Operacoes::~Operacoes(){}
 char Operacoes::getOperacaoPrincipal(){
     return this->_operacaoPrincipal;
 }
-std::string Operacoes::getTicker(){
+string Operacoes::getTicker(){
     return this->_ticker;
 }
-int Operacoes::getData(){
+string Operacoes::getData(){
     return this->_data;
+}
+char Operacoes::getOperacaoSecundaria(){
+    return this->_operacaoSecundaria;
+}
+int Operacoes::getQuantidade(){
+    return this->_quantidade;
 }

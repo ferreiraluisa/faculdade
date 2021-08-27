@@ -1,20 +1,22 @@
 #ifndef DIVIDENDOS_H
 #define DIVIDENDOS_H
 #include <string>
+using namespace std;
 
 class Dividendo{
     private:
-        std::string _ticker;
-        int _data;
+        string _ticker;
+        string  _data;
         int _valorDividendo;
     public:
         //construtores
         Dividendo();
-        Dividendo(std::string ticker,int data, int dividendo);
+        Dividendo(string ticker,string data, int dividendo);
         //destrutor
         ~Dividendo();
         //getters
-        std::string getTicker();
-        int getData();
+        int getValorDividendo();
+        string getTicker();
+        string getData();
 };
 #endif

@@ -2,7 +2,7 @@
 //construtores
 Dividendo::Dividendo(){}
 
-Dividendo::Dividendo(std::string ticker,int data, int valorDividendo):
+Dividendo::Dividendo(std::string ticker,string data, int valorDividendo):
     _ticker(ticker) , _data(data) , _valorDividendo(valorDividendo) {}
 //destrutor
 Dividendo::~Dividendo(){}
@@ -11,6 +11,10 @@ std::string Dividendo::getTicker(){
     return this->_ticker;
 }
 
-int Dividendo::getData(){
+string Dividendo::getData(){
     return this->_data;
+}
+
+int Dividendo::getValorDividendo(){
+    return this->_valorDividendo;
 }

@@ -3,7 +3,7 @@
 #include <sstream>
 
 //construtor
-classeBase::classeBase(std::string arquivoPreco,std::string arquivoDividendos,std::string arquivoSplit,std::string arquivoOperacoes){
+classeBase::classeBase(string arquivoPreco,string arquivoDividendos,string arquivoSplit,string arquivoOperacoes){
     _arquivoPreco = arquivoPreco;
     _arquivoDividendos = arquivoDividendos;
     _arquivoSplit = arquivoSplit;
@@ -30,9 +30,8 @@ classeBase::~classeBase(){
 }
 
 //Casting
-
 //transformei a data para inteiro, porque é mais "barato" comparar inteiros do que strings na hora de fazer a ordenação
-int classeBase::dataInt(std::string data){
+int classeBase::dataInt(string data){
     data.erase(data.begin()+4);
     data.erase(data.begin()+6);
 
@@ -40,63 +39,33 @@ int classeBase::dataInt(std::string data){
 
 }
 
-int classeBase::valorInt(std::string  _preco){
+int classeBase::valorInt(string  _preco){
     double aux = atof(_preco.c_str());
     aux = int((100 * aux) + 0.000001);
     return aux;
 
 }
 
-//Ler arquivos
+//Ler arquivos, todas essas funcoes tem complexidade O(n)
 //funcao responsavel por ler e armazenar os dados no arquivo que contem o preco das acoes, e isso sera armazenado num array de Preco(polimorfismo)
-/*void classeBase::lerPreco(){ 
-    int i=0;
-    std::ifstream file(this->_arquivoPreco);
-
-    bool isEmpty = (file.peek() == EOF); 
-    if(!isEmpty) {
-        std::string ticker;
-    
-        std::string data;
-    
-        std::string preco;
-    
-        std::string lixo;
-        while(file.good()){
-       
-        std::getline(file,ticker,',');
-        std::getline(file,data,',');
-        std::getline(file,lixo,',');
-        std::getline(file,lixo,',');
-        std::getline(file,lixo,',');
-        std::getline(file,preco,',');
-        std::getline(file,lixo,',');
-        std::getline(file,lixo,'\n');
-        Preco aux(ticker,dataInt(data),valorInt(preco));
-        precoAcoes[i] = aux;
-        i++;
-    }
-    this->sizePreco = i;
-    }
-}*/
 void classeBase::lerPreco(){
     int i=0;
-    std::ifstream file(this->_arquivoPreco);
-    std::string line;
-    while(std::getline(file,line)){
-        std::stringstream ss;
+    ifstream file(this->_arquivoPreco);
+    string line;
+    while(getline(file,line)){
+        stringstream ss;
         for(int i=0;i<line.size();i++)
             if(line[i] == ',') line[i] = ' ';
-        std::string ticker;
-        std::string data;
-        std::string lixo[5];
-        std::string preco;
+        string ticker;
+        string data;
+        string lixo[5];
+        string preco;
         
         ss<<line;
 
         ss>>ticker>>data>>lixo[0]>>lixo[1]>>lixo[2]>>preco>>lixo[3]>>lixo[4];
 
-        Preco aux(ticker,dataInt(data),valorInt(preco));
+        Preco aux(ticker,data,valorInt(preco));
         precoAcoes[i] = aux;
         i++;
     }
@@ -105,104 +74,57 @@ void classeBase::lerPreco(){
 //funcao responsavel por ler e armazenar os dados no arquivo que contem os dividendos das acoes,se tiver, isso sera armazenado num array de Dividendos(polimorfismo)
 void classeBase::lerDividendos(){
     int i=0;
-    std::ifstream file(this->_arquivoDividendos);
-    std::string line;
-    while(std::getline(file,line)){
-        std::stringstream ss;
+    ifstream file(this->_arquivoDividendos);
+    string line;
+    while(getline(file,line)){
+        stringstream ss;
         for(int i=0;i<line.size();i++)
             if(line[i] == ',') line[i] = ' ';
-        std::string ticker;
-        std::string data;
-        std::string preco;
+        string ticker;
+        string data;
+        string preco;
         
         ss<<line;
 
         ss>>ticker>>data>>preco;
 
-        Dividendo aux(ticker,dataInt(data),valorInt(preco));
+        Dividendo aux(ticker,data,valorInt(preco));
         dividendoAcoes[i] = aux;
         i++;
     }
     this->sizeDividendo = i;
 }
-/*void classeBase::lerDividendos(){ 
-    int i=0;
-    std::ifstream file(this->_arquivoDividendos);
-    
-    bool isEmpty = (file.peek() == EOF); 
-    if(!isEmpty){
-        std::string ticker;
-    
-        std::string data;
-    
-        std::string dividendo;
-        while(file.good()){
-       
-        std::getline(file,ticker,',');
-        std::getline(file,data,',');
-        std::getline(file,dividendo,'\n');
-        Dividendo aux(ticker,dataInt(data),valorInt(dividendo));
-        dividendoAcoes[i] = aux;
-        i++;
-     }
-    this->sizeDividendo = i;
-    }
-}
-*/
 //funcao responsavel por ler e armazenar os dados no arquivo que contem as splits das acoes,se ocorrer, isso sera armazenado num array de Splits(polimorfismo)
 void classeBase::lerSplits(){
     int i=0;
-    std::ifstream file(this->_arquivoSplit);
-    std::string line;
-    while(std::getline(file,line)){
-        std::stringstream ss;
+    ifstream file(this->_arquivoSplit);
+    string line;
+    while(getline(file,line)){
+        stringstream ss;
         for(int i=0;i<line.size();i++)
             if(line[i] == ',') line[i] = ' ';
-        std::string ticker;
-        std::string data;
-        std::string split;
+        string ticker;
+        string data;
+        string split;
         
         ss<<line;
 
         ss>>ticker>>data>>split;
 
-        Split aux(ticker,dataInt(data),split);
+        Split aux(ticker,data,split);
         splitAcoes[i] = aux;
         i++;
     }
     this->sizeSplit = i;
 }
-/*void classeBase::lerSplits(){ 
-    int i=0;
-    std::ifstream file(this->_arquivoSplit);
-
-    bool isEmpty = (file.peek() == EOF); 
-    if(!isEmpty){
-        std::string ticker;
-    
-        std::string data;
-    
-        std::string split;
-        while(file.good()){
-       
-        std::getline(file,ticker,',');
-        std::getline(file,data,',');
-        std::getline(file,split,'\n');
-        Split aux(ticker,dataInt(data),split);
-        splitAcoes[i] = aux;
-        i++;
-     }
-    this->sizeSplit = i;
-    }
-}*/
 //funcao responsavel por ler e armazenar os dados no arquivo que contem as operacoes da bolsa,se ocorrer, isso sera armazenado num array de Operacoes(polimorfismo)
 void classeBase::lerOperacoes(){
     int i=0;
-    std::ifstream file(this->_arquivoOperacoes);
-    std::string line;
-    while(std::getline(file,line)){
+    ifstream file(this->_arquivoOperacoes);
+    string line;
+    while(getline(file,line)){
         if(i==0){
-            std::stringstream ss;
+            stringstream ss;
             ss <<line;
             char operacaop;
 
@@ -212,36 +134,36 @@ void classeBase::lerOperacoes(){
         }
         else{
             if(auxOperacaoPrincipal=='Q'){
-                std::stringstream ss;
+                stringstream ss;
                 for(int i=0;i<line.size();i++)
                     if(line[i] == ',') line[i] = ' ';
-                std::string data;
+                string data;
                 char operacaosecundaria;
-                std::string ticker;
+                string ticker;
         
                 ss<<line;
 
                 ss>>data>>operacaosecundaria>>ticker;
 
-                Operacoes aux(ticker,dataInt(data),auxOperacaoPrincipal,operacaosecundaria,0);
+                Operacoes aux(ticker,data,auxOperacaoPrincipal,operacaosecundaria,0);
                 operacoesBolsa[i-1] = aux;
                 i++;
 
             }
             else{
-                std::stringstream ss;
+                stringstream ss;
                 for(int i=0;i<line.size();i++)
                     if(line[i] == ',') line[i] = ' ';
-                std::string data;
+                string data;
                 char operacaosecundaria;
-                std::string ticker;
+                string ticker;
                 int quantidade;
         
                 ss<<line;
 
                 ss>>data>>operacaosecundaria>>ticker>>quantidade;
 
-                Operacoes aux(ticker,dataInt(data),auxOperacaoPrincipal,operacaosecundaria,quantidade);
+                Operacoes aux(ticker,data,auxOperacaoPrincipal,operacaosecundaria,quantidade);
                 operacoesBolsa[i-1] = aux;
                 i++;
             }
@@ -249,43 +171,120 @@ void classeBase::lerOperacoes(){
     }
     this->sizeOperacoes = i-1;
 }
-/* tinha feito assim mas deu erro de memoria no submitty, deixei aqui para ver depois
-void classeBase::lerOperacoes(){ 
+/*tinha feito o parsing assim, mas deu erro no submitty por memoria invalida fiquei travada um dia inteiro tentando achar o erro mas nao consegui ai fiz do jeito que voce mostrou para gente(tinha olhado no youtube e assim que eu me lembrava de ter feito em programacao2(inf112)), deixei aqui pra tentar ver se descubro o erro depois caso eu lembre/sobre tempo
+void classeBase::lerPreco(){ 
     int i=0;
-    std::ifstream file(this->_arquivoOperacoes);
+    ifstream file(this->_arquivoPreco);
 
     bool isEmpty = (file.peek() == EOF); 
     if(!isEmpty) {
-            std::string ticker;
-        
-            std::string data;
-        
-            std::string operacaoPrincipal;
+        string ticker;
+    
+        string data;
+    
+        string preco;
+    
+        string lixo;
+        while(file.good()){
+       
+        getline(file,ticker,',');
+        getline(file,data,',');
+        getline(file,lixo,',');
+        getline(file,lixo,',');
+        getline(file,lixo,',');
+        getline(file,preco,',');
+        getline(file,lixo,',');
+        getline(file,lixo,'\n');
+        Preco aux(ticker,dataInt(data),valorInt(preco));
+        precoAcoes[i] = aux;
+        i++;
+    }
+    this->sizePreco = i;
+    }
+}
+void classeBase::lerDividendos(){ 
+    int i=0;
+    ifstream file(this->_arquivoDividendos);
+    
+    bool isEmpty = (file.peek() == EOF); 
+    if(!isEmpty){
+        string ticker;
+    
+        string data;
+    
+        string dividendo;
+        while(file.good()){
+       
+        getline(file,ticker,',');
+        getline(file,data,',');
+        getline(file,dividendo,'\n');
+        Dividendo aux(ticker,dataInt(data),valorInt(dividendo));
+        dividendoAcoes[i] = aux;
+        i++;
+     }
+    this->sizeDividendo = i;
+    }
+}
+void classeBase::lerSplits(){ 
+    int i=0;
+    ifstream file(this->_arquivoSplit);
 
-            std::string operacaoSecundaria;
+    bool isEmpty = (file.peek() == EOF); 
+    if(!isEmpty){
+        string ticker;
+    
+        string data;
+    
+        string split;
+        while(file.good()){
+       
+        getline(file,ticker,',');
+        getline(file,data,',');
+        getline(file,split,'\n');
+        Split aux(ticker,dataInt(data),split);
+        splitAcoes[i] = aux;
+        i++;
+     }
+    this->sizeSplit = i;
+    }
+}
+ tinha feito assim mas deu erro de memoria no submitty, deixei aqui para ver depois
+void classeBase::lerOperacoes(){ 
+    int i=0;
+    ifstream file(this->_arquivoOperacoes);
+
+    bool isEmpty = (file.peek() == EOF); 
+    if(!isEmpty) {
+            string ticker;
+        
+            string data;
+        
+            string operacaoPrincipal;
+
+            string operacaoSecundaria;
             
-            std::string quantidade;
+            string quantidade;
         while(file.good()){
 
             if (i == 0){ //essa vai ser a primeira linha
-                std::getline(file, operacaoPrincipal, '\n');
+                getline(file, operacaoPrincipal, '\n');
                 this->auxOperacaoPrincipal = operacaoPrincipal;
                 i++;
             }
             else{
                 if (this->auxOperacaoPrincipal == "Q"){
-                    std::getline(file, data, ',');
-                    std::getline(file, operacaoSecundaria, ',');
-                    std::getline(file, ticker, '\n');
+                    getline(file, data, ',');
+                    getline(file, operacaoSecundaria, ',');
+                    getline(file, ticker, '\n');
                     Operacoes aux(ticker, dataInt(data), operacaoPrincipal, operacaoSecundaria, 0);
                     operacoesBolsa[i - 1] = aux;
                     i++;
                 }
                 else{
-                    std::getline(file, data, ',');
-                    std::getline(file, operacaoSecundaria, ',');
-                    std::getline(file, ticker, ',');
-                    std::getline(file, quantidade, '\n');
+                    getline(file, data, ',');
+                    getline(file, operacaoSecundaria, ',');
+                    getline(file, ticker, ',');
+                    getline(file, quantidade, '\n');
                     int quantidadeaux = 0;
                     Operacoes aux(ticker, dataInt(data), operacaoPrincipal, operacaoSecundaria, 0);
                     operacoesBolsa[i - 1] = aux;
@@ -342,10 +341,10 @@ void classeBase::ordenaArquivos(){
 
 //busca binaria
 
-int classeBase::BuscaBin(Preco *array,int begin, int end,std::string chaveTickerData) {
+int classeBase::BuscaBin(Preco *array,int begin, int end,string chaveTickerData) {
     if (begin > end) return end;
     int meio = (end-begin)/2 + begin;
-    std::string aux = (array[meio].getTicker()) + (std::to_string(array[meio].getData()));
+    string aux = (array[meio].getTicker()) + (array[meio].getData());
     if(aux == chaveTickerData) return meio;
     if(aux > chaveTickerData) return BuscaBin(array,begin,meio-1,chaveTickerData);
     return BuscaBin(array,meio+1, end,chaveTickerData);
@@ -353,25 +352,29 @@ int classeBase::BuscaBin(Preco *array,int begin, int end,std::string chaveTicker
 
 //funcao de saida
 int classeBase::consulta(int i){
-    std::string TickerData = operacoesBolsa[i].getTicker() + std::to_string(operacoesBolsa[i].getData());
+    string TickerData = operacoesBolsa[i].getTicker() + (operacoesBolsa[i].getData());
     int pos = BuscaBin(precoAcoes,0,sizePreco-1,TickerData);
     return precoAcoes[pos].getPreco();
+}
+
+void classeBase::simulaBolsa(){
+    
 }
 
 //funcoes para teste!
 void classeBase::imprime(){
     for(int i=0;i<sizePreco;i++){
-        std::cout<<"---------------------"<<std::endl;
-        std::cout<<this->precoAcoes[i].getTicker()<<std::endl;
-        std::cout<<this->precoAcoes[i].getData()<<std::endl;
-        std::cout<<this->precoAcoes[i].getPreco()<<std::endl;
+        cout<<"---------------------"<<endl;
+        cout<<this->precoAcoes[i].getTicker()<<endl;
+        cout<<this->precoAcoes[i].getData()<<endl;
+        cout<<this->precoAcoes[i].getPreco()<<endl;
     }
 }
 void classeBase::imprime2(){
     for(int i=0;i<sizeOperacoes;i++){
-        std::cout<<"--------------"<<i<<"--------------"<<std::endl;
-        std::cout<<this->operacoesBolsa[i].getTicker()<<std::endl;
-        std::cout<<this->operacoesBolsa[i].getData()<<std::endl;
+        cout<<"--------------"<<i<<"--------------"<<endl;
+        cout<<this->operacoesBolsa[i].getTicker()<<endl;
+        cout<<this->operacoesBolsa[i].getData()<<endl;
     }
 }
 
