@@ -1,6 +1,8 @@
+#pragma once
 #ifndef PRECO_H
 #define PRECO_H
 #include <string>
+
 using namespace std;
 
 class Preco{

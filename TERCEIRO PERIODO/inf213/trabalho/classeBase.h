@@ -5,12 +5,16 @@
 #include <fstream>
 #include <sstream>
 #include <assert.h>
+#include "CarteiraInvestidor.h"
 #include "preco.h"
 #include "dividendo.h"
 #include "split.h"
 #include "operacoes.h"
 
+//essa é a classe controle, que tem tudo que eu fiz armazenado
+
 //functors 
+//usei functors para auxiliar na ordenacao
 
 class ComparaPrecosTicket {
 public:
@@ -45,19 +49,19 @@ public:
 class ComparaSplitData {
 public:
     bool operator() (Split &acaosplit, Split &acaosplit2) const {
-        return acaosplit.getData() < acaosplit2.getData();
+        return acaosplit.getData() > acaosplit2.getData();
     }
 };
 class ComparaOperacoesTicket {
 public:
     bool operator() (Operacoes &operacoesbolsa, Operacoes &operacoesbolsa2) const {
-        return operacoesbolsa2.getTicker() < operacoesbolsa2.getTicker();
+        return operacoesbolsa.getTicker() < operacoesbolsa2.getTicker();
     }
 };
 class ComparaOperacoesData {
 public:
-    bool operator() (Operacoes &acaosplit, Operacoes &acaosplit2) const {
-        return acaosplit.getData() < acaosplit2.getData();
+    bool operator() (Operacoes &operacoes, Operacoes &operacoes2) const {
+        return operacoes.getData() > operacoes2.getData();
     }
 };
 
@@ -76,7 +80,9 @@ class classeBase{
         Dividendo *dividendoAcoes;
         Split *splitAcoes;
         Operacoes *operacoesBolsa;
+        Acao *acoesAux;
         char auxOperacaoPrincipal;
+        CarteiraInvestidor investidor;
     public:
         //construtor
         classeBase();
@@ -99,13 +105,16 @@ class classeBase{
         void ordenaPreco(Preco *v, int n);
         void ordenaDividendo(Dividendo *v, int n);
         void ordenaSplit(Split *v, int n);
+        void ordenaOperacoes(Operacoes *v, int n);
         void ordenaArquivos();
         //funcoes de saida
         int consulta(int i);
-        void simulaBolsa();
-        void saidaD();
+        void leAcoes();
+        //bool acaoRepetida(string ticker, int n);
+        //void simulaBolsa();
+        //void saidaD();
         //busca binaria
-        int BuscaBin(Preco *array,int begin, int end, std::string chaveTickerData); //Para Consulta Q
+        int BuscaBin(Preco *array,int begin, int end, std::string chaveTickerData); //Para Consulta Q, concatenei o ticker com a data porque minha ideia anterior era fazer uma unica busca binaria com duas chaves, so que nao deu certo por diversos motivos e essa foi a solucao que encontrei
         //getters
         Preco* getArrayPreco();
         Dividendo *getArrayDividendo();
@@ -129,6 +138,7 @@ class classeBase{
 
 //implementacoes com o template
 //! necessario fazer elas no arquivo '.h' porque a funcao feita com template nao existe de fato, so passa a existir caso ela for chamada na main ou em outro lugar
+//usei mergeSort porque precisava de um algoritmo estável e que lidasse bem com entradas grandes(InsertionSort e BubbleSort os dos outros algortimos estaveis famosos nao lidam bem com entradas grandes)
 //ordenacao com template
 template <class T,class T1>
 void classeBase::merge(T *v, int p, int q, int r, T1 compara, T *aux) {

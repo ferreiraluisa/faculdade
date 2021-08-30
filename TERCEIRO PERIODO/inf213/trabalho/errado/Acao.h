@@ -19,14 +19,12 @@ class Acao {
         int ano;
 
     public:
-        int _quantidade; //talvez botar esses dois como protected?
+        int _quantidade; 
         int _custoMedio;
         Acao();
         Acao(string ticker,int quantidade, int n);
         ~Acao();
-        void armazenandoDadosPreco(Preco *preco, int n);
-        void armazenandoDadosDividendos(Dividendo *dividendo, int n);
-        void armazenandoDadosSplits(Split *split, int n);
+        void armazenandoDados(Preco *preco, int n,Dividendo *dividendo, int o,Split *split, int p);
         void imprime();
         int dataToInt(string data);
         int dataMinima(string data);
@@ -35,7 +33,6 @@ class Acao {
         Preco *getPrecoAcao();
         Dividendo *getDividendoAcao();
         Split *getSplitAcao();
-        void setQuantidade(int quantidade);
 
 };
 

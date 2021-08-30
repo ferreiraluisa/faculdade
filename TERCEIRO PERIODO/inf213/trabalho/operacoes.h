@@ -8,7 +8,7 @@ class Operacoes{
         string _ticker;
         string _data;
         char _operacaoPrincipal; //primeira linha do arquivo, aquele char
-        char _operacaoSecundaria;// as operacoes
+        char _operacaoSecundaria;// as operacoes em si
         int _quantidade;
     public:
         //construtores

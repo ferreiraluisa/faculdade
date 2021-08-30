@@ -13,6 +13,7 @@ classeBase::classeBase(string arquivoPreco,string arquivoDividendos,string arqui
     dividendoAcoes = new Dividendo[500000];
     splitAcoes = new Split[500000];
     operacoesBolsa = new Operacoes[500000];
+    acoesAux = new Acao[500000];
 
     sizePreco = 0;
     sizeDividendo = 0;
@@ -27,18 +28,10 @@ classeBase::~classeBase(){
     delete []dividendoAcoes;
     delete []splitAcoes;
     delete []operacoesBolsa;
+    delete []acoesAux;
 }
 
 //Casting
-//transformei a data para inteiro, porque é mais "barato" comparar inteiros do que strings na hora de fazer a ordenação
-int classeBase::dataInt(string data){
-    data.erase(data.begin()+4);
-    data.erase(data.begin()+6);
-
-    return stoi(data);
-
-}
-
 int classeBase::valorInt(string  _preco){
     double aux = atof(_preco.c_str());
     aux = int((100 * aux) + 0.000001);
@@ -47,7 +40,7 @@ int classeBase::valorInt(string  _preco){
 }
 
 //Ler arquivos, todas essas funcoes tem complexidade O(n)
-//funcao responsavel por ler e armazenar os dados no arquivo que contem o preco das acoes, e isso sera armazenado num array de Preco(polimorfismo)
+//funcao responsavel por ler e armazenar os dados no arquivo que contem o preco das acoes, e isso sera armazenado num array de Preco
 void classeBase::lerPreco(){
     int i=0;
     ifstream file(this->_arquivoPreco);
@@ -71,7 +64,7 @@ void classeBase::lerPreco(){
     }
     this->sizePreco = i;
 }
-//funcao responsavel por ler e armazenar os dados no arquivo que contem os dividendos das acoes,se tiver, isso sera armazenado num array de Dividendos(polimorfismo)
+//funcao responsavel por ler e armazenar os dados no arquivo que contem os dividendos das acoes,se tiver, isso sera armazenado num array de Dividendos
 void classeBase::lerDividendos(){
     int i=0;
     ifstream file(this->_arquivoDividendos);
@@ -94,7 +87,7 @@ void classeBase::lerDividendos(){
     }
     this->sizeDividendo = i;
 }
-//funcao responsavel por ler e armazenar os dados no arquivo que contem as splits das acoes,se ocorrer, isso sera armazenado num array de Splits(polimorfismo)
+//funcao responsavel por ler e armazenar os dados no arquivo que contem as splits das acoes,se ocorrer, isso sera armazenado num array de Splits
 void classeBase::lerSplits(){
     int i=0;
     ifstream file(this->_arquivoSplit);
@@ -117,7 +110,7 @@ void classeBase::lerSplits(){
     }
     this->sizeSplit = i;
 }
-//funcao responsavel por ler e armazenar os dados no arquivo que contem as operacoes da bolsa,se ocorrer, isso sera armazenado num array de Operacoes(polimorfismo)
+//funcao responsavel por ler e armazenar os dados no arquivo que contem as operacoes da bolsa,se ocorrer, isso sera armazenado num array de Operacoes
 void classeBase::lerOperacoes(){
     int i=0;
     ifstream file(this->_arquivoOperacoes);
@@ -333,6 +326,15 @@ void classeBase::ordenaSplit(Split *v, int n){
     mergeSort(v,0,n,ordenaTicket,aux);
     delete []aux;
 }
+void classeBase::ordenaOperacoes(Operacoes *v, int n){
+    if(n == 0) return;
+    Operacoes *aux = new Operacoes[n];
+    ComparaOperacoesTicket ordenaTicket;
+    ComparaOperacoesData ordenaData;
+    mergeSort(v,0,n,ordenaData,aux);
+    mergeSort(v,0,n,ordenaTicket,aux);
+    delete []aux;
+}
 void classeBase::ordenaArquivos(){
     ordenaPreco(precoAcoes, sizePreco);
     ordenaDividendo(dividendoAcoes, sizeDividendo);
@@ -340,7 +342,7 @@ void classeBase::ordenaArquivos(){
 }
 
 //busca binaria
-
+//concatenei ticker e data(dois strings) para ser uma unica chave(expliquei no arquivo.h melhor)
 int classeBase::BuscaBin(Preco *array,int begin, int end,string chaveTickerData) {
     if (begin > end) return end;
     int meio = (end-begin)/2 + begin;
@@ -357,9 +359,21 @@ int classeBase::consulta(int i){
     return precoAcoes[pos].getPreco();
 }
 
-void classeBase::simulaBolsa(){
-    
-}
+/*bool classeBase::acaoRepetida(string ticker, int n){
+    //busca binaria iterativa porque eu nao sei o final ao certo
+    int begin =0;
+    int end = n;
+    while(begin <= end) {
+		int meio = (end-begin)/2 + begin;
+		if (acoesAux[meio].getTicker() == ticker)
+			return false;
+		if (acoesAux[meio].getTicker() > ticker) 
+			end =  meio-1; 
+		else begin = meio+1; 
+	}
+	return true;
+}*/
+
 
 //funcoes para teste!
 void classeBase::imprime(){

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef DIVIDENDOS_H
 #define DIVIDENDOS_H
 #include <string>
