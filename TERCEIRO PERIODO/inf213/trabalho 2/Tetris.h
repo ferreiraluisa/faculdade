@@ -6,13 +6,14 @@ class Tetris{
         int numColums;
         int *alturas;
         char **jogo;
-        char **pecaAtual;
+        char ***pecas;
         void destroy();
         void create();
+        void createPecas();
+        void inicializaPeca(char id, const char peca0[4][4], const char peca90[4][4], const char peca180[4][4], const char peca270[4][4]);
+        int getNumberIdPeca(char id);
         int alturaMaxima();
-        void createPecaAtual();
         void resizeGameRowCapacity();
-        void getPeca(char _id, char &pecaAtual);
     public:
         Tetris(int _numColums);
         ~Tetris();
@@ -23,6 +24,8 @@ class Tetris{
         int getAltura(int colum); //retorna a altura da coluna c do jogo
         int getAltura(); ////retorna a altura maxima do jogo atual
         bool adicionaForma(int coluna, int linha, char id, int rotacao); //retorna se é possível ou não adicionar a peça
+        //funcoes para teste
+        void imprime();
 };
 
 #endif
