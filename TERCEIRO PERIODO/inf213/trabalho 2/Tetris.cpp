@@ -92,127 +92,127 @@ void Tetris::inicializaPeca(char id, const char peca0[4][4], const char peca90[4
 }
 
 void Tetris::createPecas(){
-    char pecaI_0_180[4][4] {
+    char peca_I_0_180[4][4] {
         {'I',' ',' ', ' '},
         {'I',' ',' ', ' '},
         {'I',' ',' ', ' '},
         {'I',' ',' ', ' '},
     };
-    char pecaI_90_270[4][4] {
+    char peca_I_90_270[4][4] {
         {'I','I','I','I'},
         {' ',' ',' ',' '},
         {' ',' ',' ',' '},
         {' ',' ',' ',' '},
     };
-    inicializaPeca('I',pecaI_0_180,pecaI_90_270,pecaI_0_180,pecaI_90_270);
+    inicializaPeca('I',peca_I_0_180,peca_I_90_270,peca_I_0_180,peca_I_90_270);
     char pecaJ_0[4][4] {
         {'J','J','J','J'},
         {' ',' ',' ','J'},
         {' ',' ',' ',' '},
         {' ',' ',' ',' '},
     };
-    char pecaJ_90[4][4] {
+    char peca_J_90[4][4] {
         {' ','J',' ',' ',},
         {' ','J',' ',' '},
         {' ','J',' ',' '},
         {'J','J',' ',' '},
     };
-    char pecaJ_180[4][4] {
+    char peca_J_180[4][4] {
         {'J',' ',' ',' '},
         {'J','J','J','J'},
         {' ',' ',' ',' '},
         {' ',' ',' ',' '},
     };
-    char pecaJ_270[4][4] {
+    char peca_J_270[4][4] {
         {'J','J',' ',' '},
         {'J',' ',' ',' '},
         {'J',' ',' ',' '},
         {'J',' ',' ',' '},
     };
-    inicializaPeca('J',pecaJ_0,pecaJ_90,pecaJ_180,pecaJ_270);
-    char pecaL_0[4][4] {
+    inicializaPeca('J',pecaJ_0,peca_J_90,peca_J_180,peca_J_270);
+    char peca_L_0[4][4] {
         {'L','L','L','L'},
         {'L',' ',' ',' '},
         {' ',' ',' ',' '},
         {' ',' ',' ',' '},
     };
-    char pecaL_90[4][4] {
+    char peca_L_90[4][4] {
         {'L','L',' ',' '},
         {' ','L',' ',' '},
         {' ','L',' ',' '},
         {' ','L',' ',' '},
     };
-    char pecaL_180[4][4] {
+    char peca_L_180[4][4] {
         {' ',' ',' ','L'},
         {'L','L','L','L'},
         {' ',' ',' ',' '},
         {' ',' ',' ',' '},
     };
-    char pecaL_270[4][4] {
+    char peca_L_270[4][4] {
         {'L',' ',' ',' '},
         {'L',' ',' ',' '},
         {'L',' ',' ',' '},
         {'L','L',' ',' '},
     };
-    inicializaPeca('L',pecaL_0,pecaL_90,pecaL_180,pecaL_270);
-    char pecaO_0_90_180_270[4][4] {
+    inicializaPeca('L',peca_L_0,peca_L_90,peca_L_180,peca_L_270);
+    char peca_O_0_90_180_270[4][4] {
         {'O','O',' ',' '},
         {'O','O',' ',' '},
         {' ',' ',' ',' '},
         {' ',' ',' ',' '},
     };
-    inicializaPeca('O',pecaO_0_90_180_270,pecaO_0_90_180_270,pecaO_0_90_180_270,pecaO_0_90_180_270);
-    char pecaS_0_180[4][4] {
+    inicializaPeca('O',peca_O_0_90_180_270,peca_O_0_90_180_270,peca_O_0_90_180_270,peca_O_0_90_180_270);
+    char peca_S_0_180[4][4] {
         {' ','S','S',' '},
         {'S','S',' ',' '},
         {' ',' ',' ',' '},
         {' ',' ',' ',' '},
     };
-    char pecaS_90_270[4][4] {
+    char peca_S_90_270[4][4] {
         {'S',' ',' ',' '},
         {'S','S',' ',' '},
         {' ','S',' ',' '},
         {' ',' ',' ',' '},
     };
-    inicializaPeca('S',pecaS_0_180,pecaS_90_270,pecaS_0_180,pecaS_90_270);
-    char pecaT_0[4][4] {
+    inicializaPeca('S',peca_S_0_180,peca_S_90_270,peca_S_0_180,peca_S_90_270);
+    char peca_T_0[4][4] {
         {'T','T','T',' '},
         {' ','T',' ',' '},
         {' ',' ',' ',' '},
         {' ',' ',' ',' '},
     };
-    char pecaT_90[4][4] {
+    char peca_T_90[4][4] {
         {' ','T',' ',' '},
         {'T','T',' ',' '},
         {' ','T',' ',' '},
         {' ',' ',' ',' '},
     };
-    char pecaT_180[4][4] {
+    char peca_T_180[4][4] {
         {' ','T',' ',' '},
         {'T','T','T',' '},
         {' ',' ',' ',' '},
         {' ',' ',' ',' '},
     };
-    char pecaT_270[4][4] {
+    char peca_T_270[4][4] {
         {'T',' ',' ',' '},
         {'T','T',' ',' '},
         {'T',' ',' ',' '},
         {' ',' ',' ',' '},
     };
-    inicializaPeca('T',pecaT_0,pecaT_90,pecaT_180,pecaT_270);
-    char pecaZ_0_180[4][4] {
+    inicializaPeca('T',peca_T_0,peca_T_90,peca_T_180,peca_T_270);
+    char peca_Z_0_180[4][4] {
         {'Z','Z',' ',' '},
         {' ','Z','Z',' '},
         {' ',' ',' ',' '},
         {' ',' ',' ',' '},
     };
-    char pecaZ_90_270[4][4] {
+    char peca_Z_90_270[4][4] {
         {' ','Z',' ',' '},
         {'Z','Z',' ',' '},
         {'Z',' ',' ',' '},
         {' ',' ',' ',' '},
     };
-    inicializaPeca('Z',pecaZ_0_180,pecaZ_90_270,pecaZ_0_180,pecaZ_90_270);
+    inicializaPeca('Z',peca_Z_0_180,peca_Z_90_270,peca_Z_0_180,peca_Z_90_270);
     
 }
 
