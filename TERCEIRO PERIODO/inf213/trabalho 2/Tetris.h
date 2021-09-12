@@ -7,10 +7,13 @@ class Tetris{
         int *alturas;
         char **jogo;
         char ***pecas;
+        int *larguraPeca;
+        int *alturaPeca;
         void destroy();
         void destroyArray2D();
         void create();
         void createPecas();
+        void setMedidasPeca(int largura, int altura, int &pos);
         void inicializaAltura();
         void inicializaJogo();
         void inicializaPeca(char id, const char peca0[4][4], const char peca90[4][4], const char peca180[4][4], const char peca270[4][4]);
