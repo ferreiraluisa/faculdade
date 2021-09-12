@@ -12,8 +12,46 @@ Tetris::Tetris(int _numcolums){
 Tetris::~Tetris(){
     destroy();
 }
+//construtor de copia
+Tetris::Tetris(const Tetris &other){
+    create();
+    *this = other;
+}
+//operador de copia
+Tetris &Tetris::operator=(const Tetris &other){
+    if(this == &other) return *this;
+    destroy();
+    numColums = other.numColums;
+    create();
+    for(int i=0;i<numColums;i++){
+        for(int j=0;j<alturas[i];j++){
+            jogo[i][j] = other.jogo[i][j];
+        }
+    }
+    return *this;
+}
+
+void Tetris::inicializaAltura(){
+    for(int i=0;i<numColums;i++) alturas[i] = 1;
+}
+
+void Tetris::inicializaJogo(){
+    for(int i=0;i<numColums;i++) {
+        resizeGameHeightCapacity(i,2);
+        jogo[i][0] = 'a';
+        jogo[i][1] = ' ';
+    }
+}
+
 void Tetris::create(){
+    alturas = new int[numColums];
+    inicializaAltura();
     jogo = new char *[numColums];
+    for(int i=0;i<numColums;i++){
+      jogo[i] = new char[2];  
+      jogo[i][0] = 'a';
+      jogo[i][1] = ' ';
+    } 
     pecas = new char **[28];
     for(int i = 0;i<28;i++){
         pecas[i] = new char*[4];
@@ -22,8 +60,12 @@ void Tetris::create(){
         }
     }
     createPecas();
+    resizeGameHeightCapacity(0,5);
+    //inicializaJogo();
 }
 void Tetris::destroy(){
+    delete[] alturas;
+    for(int i=0;i<numColums;i++) delete[] jogo[i];
     delete[] jogo;
     for(int i = 0;i<28;i++){
         for(int j=0;j<4;j++){
@@ -34,8 +76,10 @@ void Tetris::destroy(){
     delete[] pecas;
 }
 
+
+
 //funções auxiliares(privadas)
-int Tetris::alturaMaxima(){
+int Tetris::alturaMaxima() const{
     int maior = 0;
     for(int i=0;i<numColums;i++){
         if(alturas[i] > maior) maior = alturas[i];
@@ -43,8 +87,67 @@ int Tetris::alturaMaxima(){
 
     return maior;
 }
+//fiz essa função para achar a menor altura pra ver quais linhas estão completas, caso eu não achasse eu iria acessar lugar na memória que não existe e daria erro
+int Tetris::alturaMinima(){
+    int menor = 9999;
+    for(int i=0;i<numColums;i++){
+        if(alturas[i] < menor) menor = alturas[i];
+    }
+    return menor;
+}
+//testei e deu certo! 0 erros no valgrind
+bool Tetris::linhaCompleta(int linha){
+    for(int i=0;i<numColums;i++){
+        if(jogo[i][linha] == ' ') return false;
+    }
+    return true;
+}
+//testei e deu certo! 0 erros no valgrind
+void Tetris::removePecaAltura(int pos, int c){
+    char **aux = jogo;
+    alturas[c] = alturas[c]-1;
+    jogo = new char *[getNumColunas()];
+    for(int i=0;i<getNumColunas();i++){
+        jogo[i] = new char[alturas[i]];
+     }
+    for(int i=0;i<alturas[c];i++){
+        if(i == pos){
+            for(int j=i;j<alturas[c];j++){
+                jogo[c][j] = aux[c][j+1];
+            }
+            break;
+        }
+        jogo[c][i] = aux[c][i];
+    }
+    for(int i=0;i<numColums;i++){
+        delete[] aux[i];
+    }
+    delete[] aux;
+}
+//testei e deu certo! 0 erros no valgrind
+void Tetris::removeLinha(int linha){
+    for(int i=0;i<numColums;i++){
+        removePecaAltura(linha, i);
+    }
+}
 
-int Tetris::getNumberIdPeca(char id){
+int Tetris::getPosIdRotacao(char id, int rotacao){
+    switch (rotacao)
+    {
+    case 0:
+        return getPosIdPeca(id);
+    case 90:
+        return getPosIdPeca(id)+1;
+    case 180:
+        return getPosIdPeca(id)+2;
+    case 270:
+        return getPosIdPeca(id)+3;
+    default:
+        return 0;
+    }
+}
+
+int Tetris::getPosIdPeca(char id){
     switch (id)
     {
     case 'I':
@@ -68,7 +171,7 @@ int Tetris::getNumberIdPeca(char id){
 }
 
 void Tetris::inicializaPeca(char id, const char peca0[4][4], const char peca90[4][4], const char peca180[4][4], const char peca270[4][4]){\
-    int pecaId = getNumberIdPeca(id);
+    int pecaId = getPosIdPeca(id);
     for(int i=0;i<4;i++){
         for(int j=0;j<4;j++){
             pecas[pecaId][i][j] = peca0[i][j];    
@@ -216,31 +319,90 @@ void Tetris::createPecas(){
     
 }
 
-//funcoes publicas, ditas na especificação
-char Tetris::get(int colums, int lines){ //retorna um caractere que representa o estado de tal pixel no jogo atual
-    return jogo[colums][lines];
+void Tetris::resizeGameHeightCapacity(int c, int newcapacity){ //usei como fonte a funcao do resizeCapacity do MyVec na pratica5
+    if(alturas[c] == newcapacity) return;
+
+    char *colunaAntiga = jogo[c];
+
+    jogo[c] = new char[newcapacity];
+
+    for(int i=0;i<alturas[c];i++){
+        jogo[c][i] = colunaAntiga[i];
+    }
+
+    alturas[c] = newcapacity;
+
+    delete[] colunaAntiga;
 }
+
+void Tetris::eraseAlturas(int coluna){
+    int *aux = alturas;
+    alturas = new int[getNumColunas()-1];
+    for(int i=0;i<getNumColunas();i++){
+        if(i == coluna){
+            for(int j =i;j<getNumColunas()-1;j++){
+                alturas[j] = aux[j+1];
+            }
+            break;
+        }
+        alturas[i] = aux[i];
+    }
+    delete[] aux;
+}
+
+//funcoes publicas, ditas na especificação
+char Tetris::get(int colums, int row) const { //retorna um caractere que representa o estado de tal pixel no jogo atual
+    return jogo[colums][row];
+}
+//esta dando certo depois do teste! 0 erros no valgrind :D
 void Tetris::removeColuna(int coluna){ //remove a coluna do jogo (diminuindo, assim, sua largura)
+    eraseAlturas(coluna);
+    char **aux = jogo;
+    jogo = new char *[getNumColunas()-1];
+     for(int i=0;i<getNumColunas()-1;i++){
+         jogo[i] = new char[alturas[i]];
+     }
+    for(int i=0;i<numColums;i++){
+        if(i==coluna){
+            for(int j=i;j<numColums-1;j++){
+                for(int k=0;k<alturas[coluna++];k++){
+                    jogo[j][k] = aux[j+1][k];
+                }
+            }
+            break;
+        }
+        for(int j=0;j<alturas[i];j++) jogo[i][j] = aux[i][j];
+        
+    }
+    for(int i=0;i<numColums;i++){
+         delete[] aux[i];
+    }
+    delete[] aux;
+    numColums = numColums -1;
 
 }
 void Tetris::removeLinhasCompletas(){ //remove todos os pixels do jogo que estiverem em linhas completas
-
+    for(int i=0;i<alturaMinima();i++){
+        if(linhaCompleta(i)){
+            removeLinha(i);
+        }
+    }
 }
-int Tetris::getNumColum(){ //retorna o número de colunas (largura) do jogo Tetris. Esse número deverá ser igual ao valor passado pelo construtor do jogo
+int Tetris::getNumColunas() const{ //retorna o número de colunas (largura) do jogo Tetris. Esse número deverá ser igual ao valor passado pelo construtor do jogo
     return numColums;
 }
-int Tetris::getAltura(int colum){ //retorna a altura da coluna c do jogo
+int Tetris::getAltura(int colum) const{ //retorna a altura da coluna c do jogo
     return alturas[colum];
 }
-int Tetris::getAltura(){ //retorna a altura maxima do jogo atual
+int Tetris::getAltura() const { //retorna a altura maxima do jogo atual
     return alturaMaxima();
 }
 bool Tetris::adicionaForma(int coluna, int linha, char id, int rotacao){ //retorna se é possível ou não adicionar a peça
-    return true;
+    int pos = getPosIdRotacao(id,rotacao);
 }
 
 //funcoes para teste
-void Tetris::imprime(){
+void Tetris::imprimePeca(){
     char inicio = 'I';
     cout<<"-------------PECA"<<inicio++<<"-------------"<<endl;
     for(int i=0;i<28;i++){
@@ -253,4 +415,18 @@ void Tetris::imprime(){
        }    
     }
     
+}
+
+void Tetris::imprimeJogo(){
+    for(int i=0;i<numColums;i++){
+        for(int j=0;j<alturas[i];j++){
+            cout<<jogo[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<"fim"<<endl;
+}
+
+void Tetris::imprimeAltura(int c){
+    cout<<alturas[c]<<endl;
 }

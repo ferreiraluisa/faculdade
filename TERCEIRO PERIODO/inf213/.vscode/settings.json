@@ -52,6 +52,7 @@
         "xstddef": "cpp",
         "xtr1common": "cpp",
         "xutility": "cpp",
-        "strstream": "cpp"
+        "strstream": "cpp",
+        "random": "cpp"
     }
 }

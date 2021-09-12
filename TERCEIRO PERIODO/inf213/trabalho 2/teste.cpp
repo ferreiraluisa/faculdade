@@ -5,6 +5,10 @@ using namespace std;
 
 
 int main(){
-    Tetris jogo(5);
-    jogo.imprime();
+    Tetris jogo(7);
+    Tetris jogo2(4);
+
+    jogo = jogo2;
+
+
 }

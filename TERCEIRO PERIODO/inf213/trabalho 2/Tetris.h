@@ -8,24 +8,39 @@ class Tetris{
         char **jogo;
         char ***pecas;
         void destroy();
+        void destroyArray2D();
         void create();
         void createPecas();
+        void inicializaAltura();
+        void inicializaJogo();
         void inicializaPeca(char id, const char peca0[4][4], const char peca90[4][4], const char peca180[4][4], const char peca270[4][4]);
-        int getNumberIdPeca(char id);
-        int alturaMaxima();
-        void resizeGameRowCapacity();
+        void eraseAlturas(int coluna);
+        int getPosIdPeca(char id); //mostra qual posicao do array esta as pecas do id especifico
+        int getPosIdRotacao(char id, int rotacao); //mostra qual posicao do array esta as pecas do id especifico na rotacao especifica
+        int alturaMaxima() const;
+        int alturaMinima();
+        bool linhaCompleta(int linha);
+        void removePecaAltura(int pos, int c);
+        void removeLinha(int linha);
+        void resizeGameHeightCapacity(int c, int newcapacity);
     public:
+        //construtor de copia
+        Tetris(const Tetris &);
+        Tetris & operator=(const Tetris &);
         Tetris(int _numColums);
         ~Tetris();
-        char get(int colums, int lines); //retorna um caractere que representa o estado de tal pixel no jogo atual
+        char get(int colums, int row) const; //retorna um caractere que representa o estado de tal pixel no jogo atual
         void removeColuna(int coluna); //remove a coluna do jogo (diminuindo, assim, sua largura)
         void removeLinhasCompletas(); //remove todos os pixels do jogo que estiverem em linhas completas
-        int getNumColum(); //retorna o número de colunas (largura) do jogo Tetris. Esse número deverá ser igual ao valor passado pelo construtor do jogo
-        int getAltura(int colum); //retorna a altura da coluna c do jogo
-        int getAltura(); ////retorna a altura maxima do jogo atual
+        int getNumColunas() const; //retorna o número de colunas (largura) do jogo Tetris. Esse número deverá ser igual ao valor passado pelo construtor do jogo
+        int getAltura(int colum) const; //retorna a altura da coluna c do jogo
+        int getAltura() const; ////retorna a altura maxima do jogo atual
         bool adicionaForma(int coluna, int linha, char id, int rotacao); //retorna se é possível ou não adicionar a peça
         //funcoes para teste
-        void imprime();
+        void imprimePeca();
+        void imprimeJogo();
+        void imprimeAltura(int c);
+        
 };
 
 #endif
