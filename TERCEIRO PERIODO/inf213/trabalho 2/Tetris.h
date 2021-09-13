@@ -7,8 +7,8 @@ class Tetris{
         int *alturas;
         char **jogo;
         char ***pecas;
-        int *larguraPeca;
-        int *alturaPeca;
+        //int *larguraPeca;
+        //int *alturaPeca;
         void destroy();
         void destroyArray2D();
         void create();
@@ -26,7 +26,11 @@ class Tetris{
         void removePecaAltura(int pos, int c);
         void removeLinha(int linha);
         void resizeGameHeightCapacity(int c, int newcapacity);
+        void inserePeca(int pos, int coluna, int linha);
     public:
+
+        int *larguraPeca;
+        int *alturaPeca;
         //construtor de copia
         Tetris(const Tetris &);
         Tetris & operator=(const Tetris &);
