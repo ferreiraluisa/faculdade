@@ -1,0 +1,156 @@
+void Tetris::createPecas(){
+    int aux = 0;
+    char peca_I_0_180[4][4] {
+        {'I',' ',' ', ' '},
+        {'I',' ',' ', ' '},
+        {'I',' ',' ', ' '},
+        {'I',' ',' ', ' '},
+    };
+    
+    char peca_I_90_270[4][4] {
+        {'I','I','I','I'},
+        {' ',' ',' ',' '},
+        {' ',' ',' ',' '},
+        {' ',' ',' ',' '},
+    };
+
+    setMedidasPeca(1,4,aux);
+    setMedidasPeca(4,1,aux);
+    setMedidasPeca(1,4,aux);
+    setMedidasPeca(4,1,aux);
+
+    inicializaPeca('I',peca_I_0_180,peca_I_90_270,peca_I_0_180,peca_I_90_270);
+    char pecaJ_0[4][4] {
+        {'J','J','J','J'},
+        {' ',' ',' ','J'},
+        {' ',' ',' ',' '},
+        {' ',' ',' ',' '},
+    };
+    setMedidasPeca(4,2,aux);
+    char peca_J_90[4][4] {
+        {' ','J',' ',' ',},
+        {' ','J',' ',' '},
+        {' ','J',' ',' '},
+        {'J','J',' ',' '},
+    };
+    setMedidasPeca(2,4,aux);
+    char peca_J_180[4][4] {
+        {'J',' ',' ',' '},
+        {'J','J','J','J'},
+        {' ',' ',' ',' '},
+        {' ',' ',' ',' '},
+    };
+    setMedidasPeca(4,2,aux);
+    char peca_J_270[4][4] {
+        {'J','J',' ',' '},
+        {'J',' ',' ',' '},
+        {'J',' ',' ',' '},
+        {'J',' ',' ',' '},
+    };
+    setMedidasPeca(2,4,aux);
+    inicializaPeca('J',pecaJ_0,peca_J_90,peca_J_180,peca_J_270);
+    char peca_L_0[4][4] {
+        {'L','L','L','L'},
+        {'L',' ',' ',' '},
+        {' ',' ',' ',' '},
+        {' ',' ',' ',' '},
+    };
+    setMedidasPeca(4,2,aux);
+    char peca_L_90[4][4] {
+        {'L','L',' ',' '},
+        {' ','L',' ',' '},
+        {' ','L',' ',' '},
+        {' ','L',' ',' '},
+    };
+    setMedidasPeca(2,4,aux);
+    char peca_L_180[4][4] {
+        {' ',' ',' ','L'},
+        {'L','L','L','L'},
+        {' ',' ',' ',' '},
+        {' ',' ',' ',' '},
+    };
+    setMedidasPeca(4,2,aux);
+    char peca_L_270[4][4] {
+        {'L',' ',' ',' '},
+        {'L',' ',' ',' '},
+        {'L',' ',' ',' '},
+        {'L','L',' ',' '},
+    };
+    setMedidasPeca(2,4,aux);
+    inicializaPeca('L',peca_L_0,peca_L_90,peca_L_180,peca_L_270);
+    char peca_O_0_90_180_270[4][4] {
+        {'O','O',' ',' '},
+        {'O','O',' ',' '},
+        {' ',' ',' ',' '},
+        {' ',' ',' ',' '},
+    };
+    setMedidasPeca(2,2,aux);
+    setMedidasPeca(2,2,aux);
+    setMedidasPeca(2,2,aux);
+    setMedidasPeca(2,2,aux);
+    inicializaPeca('O',peca_O_0_90_180_270,peca_O_0_90_180_270,peca_O_0_90_180_270,peca_O_0_90_180_270);
+    char peca_S_0_180[4][4] {
+        {' ','S','S',' '},
+        {'S','S',' ',' '},
+        {' ',' ',' ',' '},
+        {' ',' ',' ',' '},
+    };
+    char peca_S_90_270[4][4] {
+        {'S',' ',' ',' '},
+        {'S','S',' ',' '},
+        {' ','S',' ',' '},
+        {' ',' ',' ',' '},
+    };
+    setMedidasPeca(3,2,aux); //0
+    setMedidasPeca(2,3,aux); //90
+    setMedidasPeca(3,2,aux); //180
+    setMedidasPeca(2,3,aux); //270
+    inicializaPeca('S',peca_S_0_180,peca_S_90_270,peca_S_0_180,peca_S_90_270);
+    char peca_T_0[4][4] {
+        {'T','T','T',' '},
+        {' ','T',' ',' '},
+        {' ',' ',' ',' '},
+        {' ',' ',' ',' '},
+    };
+    setMedidasPeca(3,2,aux);
+    char peca_T_90[4][4] {
+        {' ','T',' ',' '},
+        {'T','T',' ',' '},
+        {' ','T',' ',' '},
+        {' ',' ',' ',' '},
+    };
+    setMedidasPeca(2,3,aux);
+    char peca_T_180[4][4] {
+        {' ','T',' ',' '},
+        {'T','T','T',' '},
+        {' ',' ',' ',' '},
+        {' ',' ',' ',' '},
+    };
+    setMedidasPeca(3,2,aux);
+    char peca_T_270[4][4] {
+        {'T',' ',' ',' '},
+        {'T','T',' ',' '},
+        {'T',' ',' ',' '},
+        {' ',' ',' ',' '},
+    };
+    setMedidasPeca(2,3,aux);
+    inicializaPeca('T',peca_T_0,peca_T_90,peca_T_180,peca_T_270);
+    char peca_Z_0_180[4][4] {
+        {'Z','Z',' ',' '},
+        {' ','Z','Z',' '},
+        {' ',' ',' ',' '},
+        {' ',' ',' ',' '},
+    };
+    char peca_Z_90_270[4][4] {
+        {' ','Z',' ',' '},
+        {'Z','Z',' ',' '},
+        {'Z',' ',' ',' '},
+        {' ',' ',' ',' '},
+    };
+    setMedidasPeca(3,2,aux);
+    setMedidasPeca(2,3,aux);
+    setMedidasPeca(3,2,aux);
+    setMedidasPeca(2,3,aux);
+    inicializaPeca('Z',peca_Z_0_180,peca_Z_90_270,peca_Z_0_180,peca_Z_90_270);
+    
+}

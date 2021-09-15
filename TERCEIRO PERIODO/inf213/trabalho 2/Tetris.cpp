@@ -4,6 +4,10 @@ using namespace std;
 
 
 //construtores
+Tetris::Tetris(){
+    numColums = 0;
+    create();
+}
 Tetris::Tetris(int _numcolums){
     numColums = _numcolums;
     create();
@@ -22,6 +26,11 @@ Tetris &Tetris::operator=(const Tetris &other){
     destroy();
     numColums = other.numColums;
     create();
+    for(int i=0;i<numColums;i++){
+        alturas[i] = other.alturas[i];
+        delete[] jogo[i];
+        jogo[i] = new char[other.alturas[i]];
+    }
     for(int i=0;i<numColums;i++){
         for(int j=0;j<alturas[i];j++){
             jogo[i][j] = other.jogo[i][j];
@@ -92,8 +101,8 @@ int Tetris::alturaMaxima() const{
 }
 //fiz essa função para achar a menor altura pra ver quais linhas estão completas, caso eu não achasse eu iria acessar lugar na memória que não existe e daria erro
 int Tetris::alturaMinima(){
-    int menor = 9999;
-    for(int i=0;i<numColums;i++){
+    int menor = alturas[0];
+    for(int i=1;i<numColums;i++){
         if(alturas[i] < menor) menor = alturas[i];
     }
     return menor;
@@ -106,26 +115,23 @@ bool Tetris::linhaCompleta(int linha){
     return true;
 }
 //testei e deu certo! 0 erros no valgrind
-void Tetris::removePecaAltura(int pos, int c){
-    char **aux = jogo;
-    alturas[c] = alturas[c]-1;
-    jogo = new char *[getNumColunas()];
-    for(int i=0;i<getNumColunas();i++){
-        jogo[i] = new char[alturas[i]];
-     }
-    for(int i=0;i<alturas[c];i++){
-        if(i == pos){
-            for(int j=i;j<alturas[c];j++){
-                jogo[c][j] = aux[c][j+1];
+void Tetris::removePecaAltura(int linha, int coluna){
+    char *aux = jogo[coluna];
+    int smauglles = 0;
+    alturas[coluna] = alturas[coluna]-1;
+    jogo[coluna] = new char[alturas[coluna]];
+    for(int i=0;i<alturas[coluna];i++){
+        if(linha == i){
+            for(int j=i;j<alturas[coluna];j++){
+                jogo[coluna][j] = aux[j+1];
             }
             break;
         }
-        jogo[c][i] = aux[c][i];
+        jogo[coluna][i] = aux[i];
     }
-    for(int i=0;i<numColums;i++){
-        delete[] aux[i];
-    }
+
     delete[] aux;
+    
 }
 //testei e deu certo! 0 erros no valgrind
 void Tetris::removeLinha(int linha){
@@ -177,22 +183,22 @@ void Tetris::inicializaPeca(char id, const char peca0[4][4], const char peca90[4
     int pecaId = getPosIdPeca(id);
     for(int i=0;i<4;i++){
         for(int j=0;j<4;j++){
-            pecas[pecaId][i][j] = peca0[i][j];    
+            pecas[pecaId][i][j] = peca0[j][i];    
         }
     }
     for(int i=0;i<4;i++){
         for(int j=0;j<4;j++){
-            pecas[pecaId+1][i][j] = peca90[i][j];    
+            pecas[pecaId+1][i][j] = peca90[j][i];    
         }
     }
     for(int i=0;i<4;i++){
         for(int j=0;j<4;j++){
-            pecas[pecaId+2][i][j] = peca180[i][j];    
+            pecas[pecaId+2][i][j] = peca180[j][i];    
         }
     }
     for(int i=0;i<4;i++){
         for(int j=0;j<4;j++){
-            pecas[pecaId+3][i][j] = peca270[i][j];    
+            pecas[pecaId+3][i][j] = peca270[j][i];    
         }
     }
 }
@@ -219,67 +225,67 @@ void Tetris::createPecas(){
         {' ',' ',' ',' '},
     };
 
-    setMedidasPeca(1,4,aux);
-    setMedidasPeca(4,1,aux);
-    setMedidasPeca(1,4,aux);
-    setMedidasPeca(4,1,aux);
+    setMedidasPeca(1,4,aux); //0
+    setMedidasPeca(4,1,aux); //90 
+    setMedidasPeca(1,4,aux); //180
+    setMedidasPeca(4,1,aux); //270
 
     inicializaPeca('I',peca_I_0_180,peca_I_90_270,peca_I_0_180,peca_I_90_270);
     char pecaJ_0[4][4] {
-        {'J','J','J','J'},
         {' ',' ',' ','J'},
+        {'J','J','J','J'},
         {' ',' ',' ',' '},
         {' ',' ',' ',' '},
     };
     setMedidasPeca(4,2,aux);
     char peca_J_90[4][4] {
-        {' ','J',' ',' ',},
+        {'J','J',' ',' ',},
         {' ','J',' ',' '},
         {' ','J',' ',' '},
-        {'J','J',' ',' '},
+        {' ','J',' ',' '},
     };
     setMedidasPeca(2,4,aux);
     char peca_J_180[4][4] {
-        {'J',' ',' ',' '},
         {'J','J','J','J'},
+        {'J',' ',' ',' '},
         {' ',' ',' ',' '},
         {' ',' ',' ',' '},
     };
     setMedidasPeca(4,2,aux);
     char peca_J_270[4][4] {
+        {'J',' ',' ',' '},
+        {'J',' ',' ',' '},
+        {'J',' ',' ',' '},
         {'J','J',' ',' '},
-        {'J',' ',' ',' '},
-        {'J',' ',' ',' '},
-        {'J',' ',' ',' '},
     };
     setMedidasPeca(2,4,aux);
     inicializaPeca('J',pecaJ_0,peca_J_90,peca_J_180,peca_J_270);
     char peca_L_0[4][4] {
-        {'L','L','L','L'},
         {'L',' ',' ',' '},
+        {'L','L','L','L'},
         {' ',' ',' ',' '},
         {' ',' ',' ',' '},
     };
     setMedidasPeca(4,2,aux);
     char peca_L_90[4][4] {
+        {' ','L',' ',' '},
+        {' ','L',' ',' '},
+        {' ','L',' ',' '},
         {'L','L',' ',' '},
-        {' ','L',' ',' '},
-        {' ','L',' ',' '},
-        {' ','L',' ',' '},
     };
     setMedidasPeca(2,4,aux);
     char peca_L_180[4][4] {
-        {' ',' ',' ','L'},
         {'L','L','L','L'},
+        {' ',' ',' ','L'},
         {' ',' ',' ',' '},
         {' ',' ',' ',' '},
     };
     setMedidasPeca(4,2,aux);
     char peca_L_270[4][4] {
-        {'L',' ',' ',' '},
-        {'L',' ',' ',' '},
-        {'L',' ',' ',' '},
         {'L','L',' ',' '},
+        {'L',' ',' ',' '},
+        {'L',' ',' ',' '},
+        {'L',' ',' ',' '},
     };
     setMedidasPeca(2,4,aux);
     inicializaPeca('L',peca_L_0,peca_L_90,peca_L_180,peca_L_270);
@@ -295,21 +301,21 @@ void Tetris::createPecas(){
     setMedidasPeca(2,2,aux);
     inicializaPeca('O',peca_O_0_90_180_270,peca_O_0_90_180_270,peca_O_0_90_180_270,peca_O_0_90_180_270);
     char peca_S_0_180[4][4] {
-        {' ','S','S',' '},
-        {'S','S',' ',' '},
-        {' ',' ',' ',' '},
-        {' ',' ',' ',' '},
-    };
-    char peca_S_90_270[4][4] {
         {'S',' ',' ',' '},
         {'S','S',' ',' '},
         {' ','S',' ',' '},
         {' ',' ',' ',' '},
     };
-    setMedidasPeca(3,2,aux); //0
-    setMedidasPeca(2,3,aux); //90
-    setMedidasPeca(3,2,aux); //180
-    setMedidasPeca(2,3,aux); //270
+    char peca_S_90_270[4][4] {
+        {' ','S','S',' '},
+        {'S','S',' ',' '},
+        {' ',' ',' ',' '},
+        {' ',' ',' ',' '},
+    };
+    setMedidasPeca(2,3,aux); //0
+    setMedidasPeca(3,2,aux); //90
+    setMedidasPeca(2,3,aux); //180
+    setMedidasPeca(3,2,aux); //270
     inicializaPeca('S',peca_S_0_180,peca_S_90_270,peca_S_0_180,peca_S_90_270);
     char peca_T_0[4][4] {
         {'T','T','T',' '},
@@ -341,21 +347,21 @@ void Tetris::createPecas(){
     setMedidasPeca(2,3,aux);
     inicializaPeca('T',peca_T_0,peca_T_90,peca_T_180,peca_T_270);
     char peca_Z_0_180[4][4] {
-        {'Z','Z',' ',' '},
-        {' ','Z','Z',' '},
-        {' ',' ',' ',' '},
-        {' ',' ',' ',' '},
-    };
-    char peca_Z_90_270[4][4] {
         {' ','Z',' ',' '},
         {'Z','Z',' ',' '},
         {'Z',' ',' ',' '},
         {' ',' ',' ',' '},
     };
-    setMedidasPeca(3,2,aux);
+    char peca_Z_90_270[4][4] {
+        {'Z','Z',' ',' '},
+        {' ','Z','Z',' '},
+        {' ',' ',' ',' '},
+        {' ',' ',' ',' '},
+    };
     setMedidasPeca(2,3,aux);
     setMedidasPeca(3,2,aux);
     setMedidasPeca(2,3,aux);
+    setMedidasPeca(3,2,aux);
     inicializaPeca('Z',peca_Z_0_180,peca_Z_90_270,peca_Z_0_180,peca_Z_90_270);
     
 }
@@ -370,6 +376,9 @@ void Tetris::resizeGameHeightCapacity(int c, int newcapacity){ //usei como fonte
     for(int i=0;i<alturas[c];i++){
         jogo[c][i] = colunaAntiga[i];
     }
+    for(int i=alturas[c];i<newcapacity;i++){
+        jogo[c][i] = ' ';
+    }
 
     alturas[c] = newcapacity;
 
@@ -378,43 +387,76 @@ void Tetris::resizeGameHeightCapacity(int c, int newcapacity){ //usei como fonte
 
 void Tetris::eraseAlturas(int coluna){
     int *aux = alturas;
+    int cont =0;
     alturas = new int[getNumColunas()-1];
     for(int i=0;i<getNumColunas();i++){
         if(i == coluna){
             for(int j =i;j<getNumColunas()-1;j++){
                 alturas[j] = aux[j+1];
             }
+            
             break;
         }
         alturas[i] = aux[i];
     }
+
     delete[] aux;
 }
 void Tetris::inserePeca(int pos, int coluna, int linha){
-    // for(int i=0;i<larguraPeca[pos];i++){
-    //     resizeGameHeightCapacity(coluna+i, alturas[coluna+i]+alturaPeca[pos]);
+    // for(int i=0;i<alturaPeca[pos];i++){
+    //     resizeGameHeightCapacity(coluna+i,linha+i-(alturaPeca[pos]-1));
     // }
-    for(int i=0;i<alturaPeca[pos];i++){
-        for(int j=0;j<larguraPeca[pos];j++){
-            int linhaNova = linha+i-(alturaPeca[pos]-1) +1;
-            if(pecas[pos][i][j] != ' '){
-                resizeGameHeightCapacity(coluna+j, linhaNova);
+
+    // for(int j=0;j<larguraPeca[pos];j++){
+    //     for(int i=0;i<alturaPeca[pos];i++){
+    //         int linhaNova = linha - i;
+    //         if (pecas[pos][j][i] != ' '){
+    //              if (linhaNova >=  alturas[coluna + j])
+    //                 resizeGameHeightCapacity(coluna + j, linhaNova+1);
+    //                 //cout<<"oi"<<endl;
+    //          }
+    //     }
+    // }
+    for (int i = 0; i < alturaPeca[pos]; i++){
+        for (int j = 0; j < larguraPeca[pos]; j++){
+            if (pecas[pos][j][i] != ' '){
+                int colunaNova = coluna+j;
+                int linhaNova;
+                if(linha == 0){
+                    linhaNova = linha + i;
+                }
+                else {
+                    linhaNova = linha + i -1;
+                }
+                //cout<<colunaNova<<" "<<linhaNova<<endl;
+                if (linhaNova >= alturas[coluna + j]){
+                    cout<<linhaNova<<" "<<colunaNova<<" "<<numColums-1<<endl;
+                    resizeGameHeightCapacity(coluna + j, linhaNova+1);
+                    //cout<<"coluna "<<coluna+j<<"para altura tal "<<i<<endl;
+                }
             }
         }
     }
-    for(int i=0;i<alturaPeca[pos];i++){
-        for(int j=0;j<larguraPeca[pos];j++){
-            if(pecas[pos][i][j] != ' '){
-                jogo[coluna+j][linha+i-(alturaPeca[pos]-1)] = pecas[pos][i][j];  
+
+    for (int i = 0; i < alturaPeca[pos]; i++){
+        int linhaNova;
+        if(linha == 0){
+            linhaNova = linha + i;
+        }
+        else {
+            linhaNova = linha + i -1;
+        }
+        for (int j = 0; j < larguraPeca[pos]; j++){
+            if (pecas[pos][j][i] != ' '){
+                jogo[coluna + j][linhaNova] = pecas[pos][j][i];
             }
-            
         }
     }
 }
-
 //funcoes publicas, ditas na especificação
 char Tetris::get(int colums, int row) const { //retorna um caractere que representa o estado de tal pixel no jogo atual
-    return jogo[colums][row];
+    if(colums < numColums && row < alturas[colums]) return jogo[colums][row];
+    return ' ';
 }
 //esta dando certo depois do teste! 0 erros no valgrind :D
 void Tetris::removeColuna(int coluna){ //remove a coluna do jogo (diminuindo, assim, sua largura)
@@ -427,7 +469,7 @@ void Tetris::removeColuna(int coluna){ //remove a coluna do jogo (diminuindo, as
     for(int i=0;i<numColums;i++){
         if(i==coluna){
             for(int j=i;j<numColums-1;j++){
-                for(int k=0;k<alturas[coluna++];k++){
+                for(int k=0;k<alturas[(coluna++)-1];k++){
                     jogo[j][k] = aux[j+1][k];
                 }
             }
@@ -444,7 +486,7 @@ void Tetris::removeColuna(int coluna){ //remove a coluna do jogo (diminuindo, as
 
 }
 void Tetris::removeLinhasCompletas(){ //remove todos os pixels do jogo que estiverem em linhas completas
-    for(int i=0;i<alturaMinima();i++){
+    for(int i=alturaMinima()-1;i>=0;i--){
         if(linhaCompleta(i)){
             removeLinha(i);
         }
@@ -460,23 +502,30 @@ int Tetris::getAltura() const { //retorna a altura maxima do jogo atual
     return alturaMaxima();
 }
 bool Tetris::adicionaForma(int coluna, int linha, char id, int rotacao){ //retorna se é possível ou não adicionar a peça
-    bool isPossible = true;
     int pos = getPosIdRotacao(id,rotacao);
-    if(larguraPeca[pos] > numColums) return false;
-    else{
+    //if(larguraPeca[pos] > numColums) return false;
         for(int i=0;i<alturaPeca[pos];i++){
             for(int j=0;j<larguraPeca[pos];j++){
-                if(alturas[coluna] >= linha+i-(alturaPeca[pos]-1)){
-                    if(pecas[pos][i][j] != ' '){
-                        if(jogo[coluna+j][linha+i-(alturaPeca[pos]-1)] != ' ') isPossible = false;
+                if(pecas[pos][j][i] != ' '){
+                    int colunaPeca = coluna+j;
+                    int linhaPeca;
+                    if(linha == 0){
+                        linhaPeca = linha + i;
+                    }
+                    else {
+                        linhaPeca = linha + i -1;
+                    }
+                    if(linhaPeca< 0|| colunaPeca< 0 || colunaPeca>numColums-1) return false;
+                    if(linhaPeca < alturas[colunaPeca]){
+                        if(jogo[colunaPeca][linhaPeca] != ' ') return false;
                     }
                 } 
             }
         }
-    }
-    if(isPossible) inserePeca(pos,coluna,linha);
 
-    return isPossible;
+    inserePeca(pos,coluna,linha);
+
+    return true;
 }
 
 //funcoes para teste
@@ -490,7 +539,8 @@ void Tetris::imprimePeca(){
                 cout<<pecas[i][j][k]<<" ";
             }
             cout<<endl;
-       }    
+       } 
+       cout<<endl;   
     }
     
 }
@@ -498,8 +548,9 @@ void Tetris::imprimePeca(){
 void Tetris::imprimeJogo(){
     for(int i=0;i<numColums;i++){
         for(int j=0;j<alturas[i];j++){
-            cout<<jogo[i][j]<<" ";
+            cout<<jogo[i][j];
         }
+        cout<<"alturas "<<alturas[i]<<" - ";
         cout<<endl;
     }
     cout<<"fim"<<endl;

@@ -19,7 +19,7 @@ class Tetris{
         void inicializaPeca(char id, const char peca0[4][4], const char peca90[4][4], const char peca180[4][4], const char peca270[4][4]);
         void eraseAlturas(int coluna);
         int getPosIdPeca(char id); //mostra qual posicao do array esta as pecas do id especifico
-        int getPosIdRotacao(char id, int rotacao); //mostra qual posicao do array esta as pecas do id especifico na rotacao especifica
+        // int getPosIdRotacao(char id, int rotacao); //mostra qual posicao do array esta as pecas do id especifico na rotacao especifica
         int alturaMaxima() const;
         int alturaMinima();
         bool linhaCompleta(int linha);
@@ -31,7 +31,10 @@ class Tetris{
 
         int *larguraPeca;
         int *alturaPeca;
+
+        int getPosIdRotacao(char id, int rotacao); //mostra qual posicao do array esta as pecas do id especifico na rotacao especifica
         //construtor de copia
+        Tetris();
         Tetris(const Tetris &);
         Tetris & operator=(const Tetris &);
         Tetris(int _numColums);

@@ -4,10 +4,45 @@ using namespace std;
 
 int main()
 {
-    Tetris game(5);
-    bool tryAdd = game.adicionaForma(0, 1, 'T', 0);
-    bool tryAdd2 = game.adicionaForma(0, 1, 'I', 90);
-    bool tryAdd3 = game.adicionaForma(1, 4, 'S', 0);
-    bool tryAdd4 = game.adicionaForma(3, 1, 'O', 0);
-    game.imprimeJogo();
+    Tetris a(4);
+    Tetris b;
+    Tetris c(17);
+
+
+    int coluna = 0;
+    int linha = 0;
+    char Tipo = ' ';
+    int rotacao = 0;
+
+    // while (true)
+    // {
+    //     std::cin >> coluna >> linha >> Tipo >> rotacao;
+    //     if (Tipo == 'Q')
+    //     {
+    //         return 0;
+    //     }
+
+    //     std::cout << a.adicionaForma(coluna, linha, Tipo, rotacao);
+    //     b = a;
+    //     b.printMatrix();
+    //     b.removeLinhasCompletas();
+    //     b.printMatrix();
+    // }
+
+    std::cout << a.adicionaForma(0, 0, 'I', 90);
+    std::cout << a.adicionaForma(0, 5, 'I', 0);
+    std::cout << a.adicionaForma(1, 5, 'I', 0);
+    a.imprimeJogo();
+    std::cout << a.adicionaForma(2, 5, 'I', 0);
+    a.removeColuna(2);
+
+    a.imprimeJogo();
+
+   
+
+    b = a;
+    b.imprimeJogo();
+    b.removeLinhasCompletas();
+    b.imprimeJogo();
+
 }
