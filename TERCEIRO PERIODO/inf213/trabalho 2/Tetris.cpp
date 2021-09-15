@@ -70,6 +70,13 @@ void Tetris::create(){
             pecas[i][j] = new char[4];
         }
     }
+    for(int i = 0;i<28;i++){
+        for(int j=0;j<4;j++){
+            for(int k=0;k<4;k++){
+                pecas[i][j][k] = ' ';
+            }
+        }
+    }
     createPecas();
     //inicializaJogo();
 }
@@ -399,6 +406,8 @@ void Tetris::eraseAlturas(int coluna){
         }
         alturas[i] = aux[i];
     }
+    cout<<"oi"<<endl;
+    for(int i=0;i<numColums-1;i++) cout<<alturas[i]<<endl;
 
     delete[] aux;
 }
@@ -421,17 +430,10 @@ void Tetris::inserePeca(int pos, int coluna, int linha){
         for (int j = 0; j < larguraPeca[pos]; j++){
             if (pecas[pos][j][i] != ' '){
                 int colunaNova = coluna+j;
-                int linhaNova;
-                if(linha == 0){
-                    linhaNova = linha + i;
-                }
-                else {
-                    linhaNova = linha + i -1;
-                }
+                int linhaNova = linha +i - 1;
                 //cout<<colunaNova<<" "<<linhaNova<<endl;
                 if (linhaNova >= alturas[coluna + j]){
-                    cout<<linhaNova<<" "<<colunaNova<<" "<<numColums-1<<endl;
-                    resizeGameHeightCapacity(coluna + j, linhaNova+1);
+                    resizeGameHeightCapacity(coluna + j, linha + i);
                     //cout<<"coluna "<<coluna+j<<"para altura tal "<<i<<endl;
                 }
             }
@@ -439,16 +441,9 @@ void Tetris::inserePeca(int pos, int coluna, int linha){
     }
 
     for (int i = 0; i < alturaPeca[pos]; i++){
-        int linhaNova;
-        if(linha == 0){
-            linhaNova = linha + i;
-        }
-        else {
-            linhaNova = linha + i -1;
-        }
         for (int j = 0; j < larguraPeca[pos]; j++){
             if (pecas[pos][j][i] != ' '){
-                jogo[coluna + j][linhaNova] = pecas[pos][j][i];
+                jogo[coluna + j][linha+i-1] = pecas[pos][j][i];
             }
         }
     }
@@ -508,14 +503,8 @@ bool Tetris::adicionaForma(int coluna, int linha, char id, int rotacao){ //retor
             for(int j=0;j<larguraPeca[pos];j++){
                 if(pecas[pos][j][i] != ' '){
                     int colunaPeca = coluna+j;
-                    int linhaPeca;
-                    if(linha == 0){
-                        linhaPeca = linha + i;
-                    }
-                    else {
-                        linhaPeca = linha + i -1;
-                    }
-                    if(linhaPeca< 0|| colunaPeca< 0 || colunaPeca>numColums-1) return false;
+                    int linhaPeca = linha+i-1;
+                    if(linhaPeca<0 || colunaPeca<0 || colunaPeca>numColums-1) return false;
                     if(linhaPeca < alturas[colunaPeca]){
                         if(jogo[colunaPeca][linhaPeca] != ' ') return false;
                     }
