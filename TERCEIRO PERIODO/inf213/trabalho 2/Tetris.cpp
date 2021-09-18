@@ -455,8 +455,20 @@ char Tetris::get(int colums, int row) const { //retorna um caractere que represe
 }
 //esta dando certo depois do teste! 0 erros no valgrind :D
 void Tetris::removeColuna(int coluna){ //remove a coluna do jogo (diminuindo, assim, sua largura)
+// amoedo
+    char *auxColuna;
+
+    for(int i=coluna;i<numColums-1;i++){
+        auxColuna = jogo[++i];
+        jogo[i] = auxColuna;
+    }
+
+    delete[] auxColuna;
     eraseAlturas(coluna);
-    char **aux = jogo;
+    numColums = numColums -1;
+
+    //eraseAlturas(coluna);
+    /*char **aux = jogo;
     jogo = new char *[getNumColunas()-1];
      for(int i=0;i<getNumColunas()-1;i++){
          jogo[i] = new char[alturas[i]];
@@ -477,7 +489,7 @@ void Tetris::removeColuna(int coluna){ //remove a coluna do jogo (diminuindo, as
          delete[] aux[i];
     }
     delete[] aux;
-    numColums = numColums -1;
+    numColums = numColums -1;*/
 
 }
 void Tetris::removeLinhasCompletas(){ //remove todos os pixels do jogo que estiverem em linhas completas

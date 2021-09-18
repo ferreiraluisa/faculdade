@@ -8,6 +8,9 @@ int main()
     Tetris b;
     Tetris c(17);
 
+    cout<<c.adicionaForma(0,17,'I',270)<<endl;
+    c.imprimeJogo();
+
 
     int coluna = 0;
     int linha = 0;
