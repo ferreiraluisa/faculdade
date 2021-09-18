@@ -7,9 +7,10 @@ int main()
     Tetris a(4);
     Tetris b;
     Tetris c(17);
+    
+    // c.adicionaForma(0,17,'I',270);
+    // c.imprimeJogo(); aparentemente deu certo!
 
-    cout<<c.adicionaForma(0,17,'I',270)<<endl;
-    c.imprimeJogo();
 
 
     int coluna = 0;
@@ -32,20 +33,20 @@ int main()
     //     b.printMatrix();
     // }
 
-    std::cout << a.adicionaForma(0, 0, 'I', 90);
-    std::cout << a.adicionaForma(0, 5, 'I', 0);
-    std::cout << a.adicionaForma(1, 5, 'I', 0);
+    a.adicionaForma(0, 0, 'I', 90);
+    a.adicionaForma(0, 5, 'I', 0);
+    a.adicionaForma(1, 5, 'I', 0);
     a.imprimeJogo();
-    std::cout << a.adicionaForma(2, 5, 'I', 0);
+    a.adicionaForma(2, 5, 'I', 0);
     a.removeColuna(2);
 
     a.imprimeJogo();
 
    
 
-    b = a;
-    b.imprimeJogo();
-    b.removeLinhasCompletas();
-    b.imprimeJogo();
+    // b = a;
+    // b.imprimeJogo();
+    // b.removeLinhasCompletas();
+    // b.imprimeJogo();
 
 }

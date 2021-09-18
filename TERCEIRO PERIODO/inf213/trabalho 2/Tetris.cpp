@@ -125,7 +125,6 @@ bool Tetris::linhaCompleta(int linha){
 //testei e deu certo! 0 erros no valgrind
 void Tetris::removePecaAltura(int linha, int coluna){
     char *aux = jogo[coluna];
-    int smauglles = 0;
     alturas[coluna] = alturas[coluna]-1;
     jogo[coluna] = new char[alturas[coluna]];
     for(int i=0;i<alturas[coluna];i++){
@@ -407,7 +406,6 @@ void Tetris::eraseAlturas(int coluna){
         }
         alturas[i] = aux[i];
     }
-    for(int i=0;i<numColums-1;i++) cout<<alturas[i]<<endl;
 
     delete[] aux;
 }
@@ -430,10 +428,10 @@ void Tetris::inserePeca(int pos, int coluna, int linha){
         for (int j = 0; j < larguraPeca[pos]; j++){
             if (pecas[pos][j][i] != ' '){
                 int colunaNova = coluna+j;
-                int linhaNova = linha +i - 1;
+                int linhaNova =linha-(alturaPeca[pos]-1-i)+1;
                 //cout<<colunaNova<<" "<<linhaNova<<endl;
                 if (linhaNova >= alturas[coluna + j]){
-                    resizeGameHeightCapacity(coluna + j, linha + i);
+                    resizeGameHeightCapacity(coluna + j, linhaNova);
                     //cout<<"coluna "<<coluna+j<<"para altura tal "<<i<<endl;
                 }
             }
@@ -443,9 +441,10 @@ void Tetris::inserePeca(int pos, int coluna, int linha){
     for (int i = 0; i < alturaPeca[pos]; i++){
         for (int j = 0; j < larguraPeca[pos]; j++){
             if (pecas[pos][j][i] != ' '){
-                jogo[coluna + j][linha+i-1] = pecas[pos][j][i];
+                int linhaAux = i +abs(alturaPeca[pos]-1-linha);
+                jogo[coluna + j][linhaAux] = pecas[pos][j][i];
             }
-        }
+        }   
     }
 }
 //funcoes publicas, ditas na especificação
@@ -515,7 +514,7 @@ bool Tetris::adicionaForma(int coluna, int linha, char id, int rotacao){ //retor
             for(int j=0;j<larguraPeca[pos];j++){
                 if(pecas[pos][j][i] != ' '){
                     int colunaPeca = coluna+j;
-                        int linhaPeca = linha+i-1;
+                    int linhaPeca = linha+i-(alturaPeca[pos]-1); //certo aqui insere peca que esta errado!
                     if(linhaPeca<0 || colunaPeca<0 || colunaPeca>numColums-1) return false;
                     if(linhaPeca < alturas[colunaPeca]){
                         if(jogo[colunaPeca][linhaPeca] != ' ') return false;
