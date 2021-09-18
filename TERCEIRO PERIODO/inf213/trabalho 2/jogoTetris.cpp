@@ -35,7 +35,7 @@ int main() {
 
 
 	const int possiveisRotacoes[] = {0,90,180,270};
-	const int larguraJogo = 4;
+	const int larguraJogo = 16;
 	const int alturaMaximaJogo = 20;
 	Tetris jogo(larguraJogo);
 	Tetris jogoComPecaCaindo(larguraJogo);
@@ -46,7 +46,7 @@ int main() {
 
 	int ultimaTecla = -1;
 
-	idPecaAtual = "I"[rand()%1];
+	idPecaAtual = "IJLOSTZ"[rand()%7];
 	posicaoPecaAtual = larguraJogo/2-2;
 	alturaPecaAtual = alturaMaximaJogo;
 	rotacaoPecaAtual = 0;
@@ -85,7 +85,7 @@ int main() {
 			jogo.adicionaForma(posicaoPecaAtual,alturaPecaAtual,idPecaAtual, possiveisRotacoes[rotacaoPecaAtual]);
 			jogoComPecaCaindo = jogo;
 
-			idPecaAtual = "I"[rand()%1];
+			idPecaAtual = "IJLOSTZ"[rand()%7];
 			posicaoPecaAtual = larguraJogo/2-2;
 			alturaPecaAtual = alturaMaximaJogo;
 			rotacaoPecaAtual = 0;

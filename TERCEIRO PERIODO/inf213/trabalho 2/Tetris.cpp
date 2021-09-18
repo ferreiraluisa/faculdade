@@ -17,6 +17,7 @@ Tetris::~Tetris(){
 }
 //construtor de copia
 Tetris::Tetris(const Tetris &other){
+    numColums = other.numColums;
     create();
     *this = other;
 }
@@ -395,10 +396,10 @@ void Tetris::resizeGameHeightCapacity(int c, int newcapacity){ //usei como fonte
 void Tetris::eraseAlturas(int coluna){
     int *aux = alturas;
     int cont =0;
-    alturas = new int[getNumColunas()-1];
-    for(int i=0;i<getNumColunas();i++){
+    alturas = new int[numColums-1];
+    for(int i=0;i<numColums;i++){
         if(i == coluna){
-            for(int j =i;j<getNumColunas()-1;j++){
+            for(int j =i;j<numColums-1;j++){
                 alturas[j] = aux[j+1];
             }
             
@@ -406,7 +407,6 @@ void Tetris::eraseAlturas(int coluna){
         }
         alturas[i] = aux[i];
     }
-    cout<<"oi"<<endl;
     for(int i=0;i<numColums-1;i++) cout<<alturas[i]<<endl;
 
     delete[] aux;
@@ -515,7 +515,7 @@ bool Tetris::adicionaForma(int coluna, int linha, char id, int rotacao){ //retor
             for(int j=0;j<larguraPeca[pos];j++){
                 if(pecas[pos][j][i] != ' '){
                     int colunaPeca = coluna+j;
-                    int linhaPeca = linha+i-1;
+                        int linhaPeca = linha+i-1;
                     if(linhaPeca<0 || colunaPeca<0 || colunaPeca>numColums-1) return false;
                     if(linhaPeca < alturas[colunaPeca]){
                         if(jogo[colunaPeca][linhaPeca] != ' ') return false;
