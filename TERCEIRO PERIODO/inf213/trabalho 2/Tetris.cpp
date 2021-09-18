@@ -308,25 +308,25 @@ void Tetris::createPecas(){
     setMedidasPeca(2,2,aux);
     inicializaPeca('O',peca_O_0_90_180_270,peca_O_0_90_180_270,peca_O_0_90_180_270,peca_O_0_90_180_270);
     char peca_S_0_180[4][4] {
-        {'S',' ',' ',' '},
         {'S','S',' ',' '},
-        {' ','S',' ',' '},
+        {' ','S','S',' '},
+        {' ',' ',' ',' '},
         {' ',' ',' ',' '},
     };
     char peca_S_90_270[4][4] {
-        {' ','S','S',' '},
+        {' ','S',' ',' '},
         {'S','S',' ',' '},
-        {' ',' ',' ',' '},
+        {'S',' ',' ',' '},
         {' ',' ',' ',' '},
     };
-    setMedidasPeca(2,3,aux); //0
-    setMedidasPeca(3,2,aux); //90
-    setMedidasPeca(2,3,aux); //180
-    setMedidasPeca(3,2,aux); //270
+    setMedidasPeca(3,2,aux); //0
+    setMedidasPeca(2,3,aux); //90
+    setMedidasPeca(3,2,aux); //180
+    setMedidasPeca(2,3,aux); //270
     inicializaPeca('S',peca_S_0_180,peca_S_90_270,peca_S_0_180,peca_S_90_270);
     char peca_T_0[4][4] {
-        {'T','T','T',' '},
         {' ','T',' ',' '},
+        {'T','T','T',' '},
         {' ',' ',' ',' '},
         {' ',' ',' ',' '},
     };
@@ -339,8 +339,8 @@ void Tetris::createPecas(){
     };
     setMedidasPeca(2,3,aux);
     char peca_T_180[4][4] {
-        {' ','T',' ',' '},
         {'T','T','T',' '},
+        {' ','T',' ',' '},
         {' ',' ',' ',' '},
         {' ',' ',' ',' '},
     };
@@ -354,21 +354,21 @@ void Tetris::createPecas(){
     setMedidasPeca(2,3,aux);
     inicializaPeca('T',peca_T_0,peca_T_90,peca_T_180,peca_T_270);
     char peca_Z_0_180[4][4] {
-        {' ','Z',' ',' '},
+        {' ','Z','Z',' '},
         {'Z','Z',' ',' '},
-        {'Z',' ',' ',' '},
+        {' ',' ',' ',' '},
         {' ',' ',' ',' '},
     };
     char peca_Z_90_270[4][4] {
+        {'Z',' ',' ',' '},
         {'Z','Z',' ',' '},
-        {' ','Z','Z',' '},
-        {' ',' ',' ',' '},
+        {' ','Z',' ',' '},
         {' ',' ',' ',' '},
     };
-    setMedidasPeca(2,3,aux);
     setMedidasPeca(3,2,aux);
     setMedidasPeca(2,3,aux);
     setMedidasPeca(3,2,aux);
+    setMedidasPeca(2,3,aux);
     inicializaPeca('Z',peca_Z_0_180,peca_Z_90_270,peca_Z_0_180,peca_Z_90_270);
     
 }
@@ -394,8 +394,6 @@ void Tetris::resizeGameHeightCapacity(int c, int newcapacity){ //usei como fonte
 
 void Tetris::eraseAlturas(int coluna){
     int *aux = alturas;
-    int cont =0;
-    alturas = new int[numColums-1];
     for(int i=0;i<numColums;i++){
         if(i == coluna){
             for(int j =i;j<numColums-1;j++){
@@ -453,48 +451,122 @@ char Tetris::get(int colums, int row) const { //retorna um caractere que represe
     return ' ';
 }
 //esta dando certo depois do teste! 0 erros no valgrind :D
-void Tetris::removeColuna(int coluna){ //remove a coluna do jogo (diminuindo, assim, sua largura)
-// amoedo
-    char *auxColuna;
+void Tetris::removeColuna(int c){ //remove a coluna do jogo (diminuindo, assim, sua largura)
+//amoedo
+    /*char *auxColuna;
 
     for(int i=coluna;i<numColums-1;i++){
-        auxColuna = jogo[++i];
+        auxColuna = jogo[i+1];
         jogo[i] = auxColuna;
     }
 
-    delete[] auxColuna;
-    eraseAlturas(coluna);
-    numColums = numColums -1;
 
-    //eraseAlturas(coluna);
-    /*char **aux = jogo;
-    jogo = new char *[getNumColunas()-1];
-     for(int i=0;i<getNumColunas()-1;i++){
-         jogo[i] = new char[alturas[i]];
-     }
+    eraseAlturas(coluna);
+    numColums = numColums -1;*/
+    /* BOLSNORO char **aux = jogo;
+    for(int i=0;i<numColums;i++){
+        delete[] jogo[i];
+    }
+    delete[] jogo;
+
+    jogo = new char*[numColums-1];
+
+    int auxInt = 0;
+
     for(int i=0;i<numColums;i++){
         if(i==coluna){
-            for(int j=i;j<numColums-1;j++){
-                for(int k=0;k<alturas[(coluna++)-1];k++){
-                    jogo[j][k] = aux[j+1][k];
-                }
-            }
-            break;
+            jogo[auxInt] = new char[alturas[i]];
+            auxInt++;
         }
-        for(int j=0;j<alturas[i];j++) jogo[i][j] = aux[i][j];
-        
+    }
+    auxInt = 0;
+    for(int i=0;i<numColums;i++){
+        for(int j=0;j<alturas[i];j++){
+            if(i!=coluna){
+                jogo[auxInt][j] = aux[i][j];
+            }
+        }
+        if(i!=coluna) auxInt++;
+    }
+    auxInt = 0;
+    for(int i=0;i<numColums;i++){
+        if(i!=coluna) {
+            alturas[auxInt] = alturas[i];
+            auxInt++;
+        }
     }
     for(int i=0;i<numColums;i++){
          delete[] aux[i];
     }
     delete[] aux;
-    numColums = numColums -1;*/
 
+    numColums = numColums-1; */
+    //eraseAlturas(coluna);
+    // char **aux = new char*[numColums];
+    // for(int i=0;i<numColums;i++){
+    //     aux[i] = new char[alturas[i]];
+    // }
+    // for(int i=0;i<numColums;i++){
+    //     for(int j=0;j<alturas[i];j++){
+    //         aux[i][j] = jogo[i][j];
+    //     }
+    // }
+    // for(int i=0;i<numColums;i++){
+    //     delete[] jogo[i];
+    // }
+    // delete[] jogo;
+    
+    // int cont = 0;
+
+    // jogo = new char *[numColums-1];
+    // for(int i=0;i<numColums-1;i++){
+    //     if(i != coluna){
+    //         jogo[cont] = new char[alturas[i]];
+    //         cont++;
+    //     }
+    // }
+    // for(int i=0;i<numColums;i++){
+    //     if(i!=coluna){
+    //         for(int j=i;j<numColums-1;j++){
+    //             for(int k=0;k<alturas[(coluna++)-1];k++){
+    //                 jogo[j][k] = aux[j+1][k];
+    //             }
+    //         }
+    //         break;
+    //     }
+    //     for(int j=0;j<alturas[i];j++) jogo[i][j] = aux[i][j];
+        
+    // }
+    // for(int i=0;i<numColums;i++){
+    //      delete[] aux[i];
+    // }
+    // delete[] aux;
+    // numColums = numColums -1;
 }
 void Tetris::removeLinhasCompletas(){ //remove todos os pixels do jogo que estiverem em linhas completas
     for(int i=alturaMinima()-1;i>=0;i--){
         if(linhaCompleta(i)){
             removeLinha(i);
+        }
+    }
+    for(int i=0;i<numColums;i++){
+        int contCharLivre = 0;
+        for(int j = alturas[i]-1;j>=0;j--){
+            if(jogo[i][j] !=' ') break;
+            contCharLivre++;
+        }
+        if(contCharLivre > 0){
+            char *colunaAux = jogo[i];
+            int alturaNova = alturas[i] - contCharLivre; //talvez -1 se der errado tenta aqui
+            jogo[i] = new char[alturaNova];
+            alturas[i] = alturaNova;
+            for(int j=0;j<alturas[i];j++){
+                jogo[i][j] = colunaAux[j];
+            }
+            
+
+            delete[] colunaAux;
+
         }
     }
 }
