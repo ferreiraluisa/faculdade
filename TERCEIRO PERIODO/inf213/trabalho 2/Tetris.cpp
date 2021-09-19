@@ -394,6 +394,8 @@ void Tetris::resizeGameHeightCapacity(int c, int newcapacity){ //usei como fonte
 
 void Tetris::eraseAlturas(int coluna){
     int *aux = alturas;
+    int cont =0;
+    alturas = new int[numColums-1];
     for(int i=0;i<numColums;i++){
         if(i == coluna){
             for(int j =i;j<numColums-1;j++){
@@ -451,97 +453,16 @@ char Tetris::get(int colums, int row) const { //retorna um caractere que represe
     return ' ';
 }
 //esta dando certo depois do teste! 0 erros no valgrind :D
-void Tetris::removeColuna(int c){ //remove a coluna do jogo (diminuindo, assim, sua largura)
-//amoedo
-    /*char *auxColuna;
+void Tetris::removeColuna(int coluna){ //remove a coluna do jogo (diminuindo, assim, sua largura)
+    char *auxColuna = jogo[coluna];
 
     for(int i=coluna;i<numColums-1;i++){
-        auxColuna = jogo[i+1];
-        jogo[i] = auxColuna;
+        jogo[i] = jogo[i+1];
     }
-
-
-    eraseAlturas(coluna);
-    numColums = numColums -1;*/
-    /* BOLSNORO char **aux = jogo;
-    for(int i=0;i<numColums;i++){
-        delete[] jogo[i];
-    }
-    delete[] jogo;
-
-    jogo = new char*[numColums-1];
-
-    int auxInt = 0;
-
-    for(int i=0;i<numColums;i++){
-        if(i==coluna){
-            jogo[auxInt] = new char[alturas[i]];
-            auxInt++;
-        }
-    }
-    auxInt = 0;
-    for(int i=0;i<numColums;i++){
-        for(int j=0;j<alturas[i];j++){
-            if(i!=coluna){
-                jogo[auxInt][j] = aux[i][j];
-            }
-        }
-        if(i!=coluna) auxInt++;
-    }
-    auxInt = 0;
-    for(int i=0;i<numColums;i++){
-        if(i!=coluna) {
-            alturas[auxInt] = alturas[i];
-            auxInt++;
-        }
-    }
-    for(int i=0;i<numColums;i++){
-         delete[] aux[i];
-    }
-    delete[] aux;
-
-    numColums = numColums-1; */
-    //eraseAlturas(coluna);
-    // char **aux = new char*[numColums];
-    // for(int i=0;i<numColums;i++){
-    //     aux[i] = new char[alturas[i]];
-    // }
-    // for(int i=0;i<numColums;i++){
-    //     for(int j=0;j<alturas[i];j++){
-    //         aux[i][j] = jogo[i][j];
-    //     }
-    // }
-    // for(int i=0;i<numColums;i++){
-    //     delete[] jogo[i];
-    // }
-    // delete[] jogo;
     
-    // int cont = 0;
-
-    // jogo = new char *[numColums-1];
-    // for(int i=0;i<numColums-1;i++){
-    //     if(i != coluna){
-    //         jogo[cont] = new char[alturas[i]];
-    //         cont++;
-    //     }
-    // }
-    // for(int i=0;i<numColums;i++){
-    //     if(i!=coluna){
-    //         for(int j=i;j<numColums-1;j++){
-    //             for(int k=0;k<alturas[(coluna++)-1];k++){
-    //                 jogo[j][k] = aux[j+1][k];
-    //             }
-    //         }
-    //         break;
-    //     }
-    //     for(int j=0;j<alturas[i];j++) jogo[i][j] = aux[i][j];
-        
-    // }
-    // for(int i=0;i<numColums;i++){
-    //      delete[] aux[i];
-    // }
-    // delete[] aux;
-    // numColums = numColums -1;
+    delete[] auxColuna;
+    eraseAlturas(coluna);
+    numColums = numColums -1;
 }
 void Tetris::removeLinhasCompletas(){ //remove todos os pixels do jogo que estiverem em linhas completas
     for(int i=alturaMinima()-1;i>=0;i--){

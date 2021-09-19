@@ -35,7 +35,7 @@ int main() {
 
 
 	const int possiveisRotacoes[] = {0,90,180,270};
-	const int larguraJogo = 16;
+	const int larguraJogo = 8;
 	const int alturaMaximaJogo = 20;
 	Tetris jogo(larguraJogo);
 	Tetris jogoComPecaCaindo(larguraJogo);
