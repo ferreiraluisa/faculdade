@@ -1,7 +1,6 @@
 /*
 TAD MyList2
 - Representa uma lista implementada por encadeamento duplo
-
 */
 
 #ifndef MyList2_H__
@@ -84,8 +83,8 @@ public:
 	void clear();
 
 	//Exercicio: implementar as duas funcoes abaixo supondo que nao ha um membro de dados dataSize (o calculo do tamanho da lista seria dinamico)
-	bool empty() const {return size() == 0;}
-	int size() const {return -1; /*etapa 2: implemente esta funcao sem usar o membro de dados dataSize*/ } // na STL List, a funcao size() calcula o tamanho da lista dinamicamente (exercicio: qual a ordem de complexidade?)
+	bool empty(); //const {return size() == 0;}
+	int size() const; //{return -1; /*etapa 2: implemente esta funcao sem usar o membro de dados dataSize*/ } // na STL List, a funcao size() calcula o tamanho da lista dinamicamente (exercicio: qual a ordem de complexidade?)
 
 private:
 	Node<T> *dataFirst, * dataLast;
@@ -149,6 +148,10 @@ MyList2Iterator<T> MyList2Iterator<T>::operator--() {
 template<class T>
 MyList2Iterator<T> MyList2Iterator<T>::operator++(int) {
 	//Termine esta implementacao...
+	MyList2Iterator<T> auxIt = *this;
+	ptr = ptr->next;
+
+	return auxIt;
 
 
 }
@@ -156,6 +159,10 @@ MyList2Iterator<T> MyList2Iterator<T>::operator++(int) {
 template<class T>
 MyList2Iterator<T> MyList2Iterator<T>::operator--(int) {
 	//Termine esta implementacao...	
+	MyList2Iterator<T> auxIt = *this;
+	ptr = ptr->prev;
+
+	return auxIt;
 
 
 }
@@ -344,6 +351,27 @@ std::ostream& operator<<(std::ostream &out, const MyList2<T2> &v) {
 
 	return out;
 }
+
+template<class T>
+int MyList2<T>::size() const{
+	iterator it = dataFirst;
+	int size = 0;
+	while(it!=NULL){
+		size++;
+		it++;
+	}
+	return size;
+
+}
+
+template<class T>
+bool MyList2<T>::empty(){
+	iterator it = dataFirst;
+	if(it == NULL) return true;
+	return false;
+
+}
+
 
 
 #endif

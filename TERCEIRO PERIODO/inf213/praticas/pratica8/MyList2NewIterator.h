@@ -76,8 +76,12 @@ public:
 	iterator erase(iterator elem); //remove o elemento apontado por Elem
 														//retorna o (apontador) para o elemento apos o removido
 
-	iterator begin() {return iterator(dataFirst);} //Exercicio: e se tivermos uma lista constante, como itera-la para, por exemplo, imprimir os elementos?
-	iterator end() {return iterator(NULL);} //retorna um apontador para um nodo que estaria APOS o final da lista
+	iterator begin() {
+		return iterator(dataFirst,this);
+	} //Exercicio: e se tivermos uma lista constante, como itera-la para, por exemplo, imprimir os elementos?
+	iterator end() {
+		return iterator(NULL,this);
+	} //retorna um apontador para um nodo que estaria APOS o final da lista
 		
 	//por simplicidade, nao vamos criar iteradores constantes...
 
@@ -101,7 +105,7 @@ template<class T>
 class MyList2Iterator {
 	friend class MyList2<T>;
 public:
-	MyList2Iterator(Node<T> *ptr_): ptr(ptr_) {}
+	MyList2Iterator(Node<T> *ptr_, const MyList2<T> *listPtr_): ptr(ptr_), listPtr(listPtr_) {}
 	T &operator*() {return ptr->data;}
 	const T &operator*() const {return ptr->data;} //versao constante do operador de derreferencia
 
@@ -126,6 +130,7 @@ public:
 
 private:
 	Node<T> *ptr;
+	const MyList2<T> *listPtr;
 };
 
 
@@ -138,7 +143,8 @@ MyList2Iterator<T> MyList2Iterator<T>::operator++() {
 
 template<class T>
 MyList2Iterator<T> MyList2Iterator<T>::operator--() {
-	ptr = ptr->prev;		
+	if(ptr == NULL) ptr = listPtr->dataLast;
+	else ptr = ptr->prev;		
 	
 	return *this;
 }
@@ -161,7 +167,9 @@ template<class T>
 MyList2Iterator<T> MyList2Iterator<T>::operator--(int) {
 	//Termine esta implementacao...	
 	MyList2Iterator<T> auxIt = *this;
-	ptr = ptr->prev;
+	if(ptr == NULL) ptr = listPtr->dataLast;
+	else listPtr->dataLast;
+	 ptr = ptr->prev;
 
 	return auxIt;
 
@@ -250,7 +258,7 @@ void MyList2<T>::push_front(const T&elem) {
 	if(dataFirst==NULL) { //caso especial: lista inicialmente vazia
 		dataFirst = dataLast = new Node<T>(elem);
 	} else {
-		iterator newNode = new Node<T>(elem);
+		iterator newNode(new Node<T>(elem),*this);
 		newNode->next = dataFirst;
 		dataFirst->prev = newNode;
 		dataFirst = newNode;
@@ -326,7 +334,7 @@ typename MyList2<T>::iterator MyList2<T>::erase(iterator elemIt) { //remove o el
 
 		delete elem;
 
-		return iterator(beforeElem->next);
+		return iterator(beforeElem->next,*this);
 	}
 }
 
@@ -355,9 +363,9 @@ std::ostream& operator<<(std::ostream &out, const MyList2<T2> &v) {
 
 template<class T>
 int MyList2<T>::size() const{
-	iterator it = dataFirst;
+	iterator it (dataFirst,this);
 	int size = 0;
-	while(it!=NULL){
+	while(it.ptr!=NULL){
 		size++;
 		it++;
 	}
@@ -367,8 +375,8 @@ int MyList2<T>::size() const{
 
 template<class T>
 bool MyList2<T>::empty(){
-	iterator it = dataFirst;
-	if(it == NULL) return true;
+	iterator it (dataFirst,this);
+	if(it.ptr == NULL) return true;
 	return false;
 
 }
