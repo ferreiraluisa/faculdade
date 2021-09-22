@@ -48,6 +48,7 @@ class MyList2Iterator; //precisamos declarar essa classe antes da MyList2 para q
 
 template<class T>
 class MyList2 {
+	friend class MyList2Iterator<T>;
 public:
 	//decidimos utilizar o typedef com o objetivo de "abstrair" o conceito de iterador (a utilidade disso sera vista posteriormente)
 	typedef MyList2Iterator<T> iterator; //define um iterador, um tipo utilizado para percorrer uma estrutura de dados e "apontar" para os items armazenados nela
@@ -168,8 +169,7 @@ MyList2Iterator<T> MyList2Iterator<T>::operator--(int) {
 	//Termine esta implementacao...	
 	MyList2Iterator<T> auxIt = *this;
 	if(ptr == NULL) ptr = listPtr->dataLast;
-	else listPtr->dataLast;
-	 ptr = ptr->prev;
+	else ptr = ptr->prev;
 
 	return auxIt;
 
