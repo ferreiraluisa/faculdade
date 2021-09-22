@@ -40,15 +40,6 @@ Tetris &Tetris::operator=(const Tetris &other){
     return *this;
 }
 
-
-// void Tetris::inicializaJogo(){
-//     for(int i=0;i<numColums;i++) {
-//         resizeGameHeightCapacity(i,2);
-//         jogo[i][0] = 'a';
-//         jogo[i][1] = ' ';
-//     }
-// }
-
 void Tetris::create(){
     larguraPeca = new int[28];
     for(int i = 0; i < 28; i ++)
@@ -78,8 +69,7 @@ void Tetris::create(){
             }
         }
     }
-    createPecas();
-    //inicializaJogo();
+    createPecas(); //inicializa as peças
 }
 void Tetris::destroy(){
     delete[] alturas;
@@ -108,22 +98,22 @@ int Tetris::alturaMaxima() const{
     return maior;
 }
 //fiz essa função para achar a menor altura pra ver quais linhas estão completas, caso eu não achasse eu iria acessar lugar na memória que não existe e daria erro
-int Tetris::alturaMinima(){
+int Tetris::alturaMinima() const{
     int menor = alturas[0];
     for(int i=1;i<numColums;i++){
         if(alturas[i] < menor) menor = alturas[i];
     }
     return menor;
 }
-//testei e deu certo! 0 erros no valgrind
+
 bool Tetris::linhaCompleta(int linha){
     for(int i=0;i<numColums;i++){
         if(jogo[i][linha] == ' ') return false;
     }
     return true;
 }
-//testei e deu certo! 0 erros no valgrind
-void Tetris::removePecaAltura(int linha, int coluna){
+
+void Tetris::removePecaAltura(int linha, int coluna){ //remover a peça na linha correspondente a linha que está completa
     char *aux = jogo[coluna];
     alturas[coluna] = alturas[coluna]-1;
     jogo[coluna] = new char[alturas[coluna]];
@@ -140,14 +130,14 @@ void Tetris::removePecaAltura(int linha, int coluna){
     delete[] aux;
     
 }
-//testei e deu certo! 0 erros no valgrind
-void Tetris::removeLinha(int linha){
+
+void Tetris::removeLinha(int linha){ //vai chamar a removePecaAltura pra remover a peca na linha de todas as colunas
     for(int i=0;i<numColums;i++){
         removePecaAltura(linha, i);
     }
 }
 
-int Tetris::getPosIdRotacao(char id, int rotacao){
+int Tetris::getPosIdRotacao(char id, int rotacao){ //vai pegar qual a posicao do array 3d pecas que a matriz 4x4 da peça com id x e rotacao y se encontra
     switch (rotacao)
     {
     case 0:
@@ -163,7 +153,7 @@ int Tetris::getPosIdRotacao(char id, int rotacao){
     }
 }
 
-int Tetris::getPosIdPeca(char id){
+int Tetris::getPosIdPeca(char id){//vai pegar qual a posicao do array 3d pecas que a matriz 4x4 da peça com id x se encontra
     switch (id)
     {
     case 'I':
@@ -186,7 +176,7 @@ int Tetris::getPosIdPeca(char id){
     }
 }
 
-void Tetris::inicializaPeca(char id, const char peca0[4][4], const char peca90[4][4], const char peca180[4][4], const char peca270[4][4]){\
+void Tetris::inicializaPeca(char id, const char peca0[4][4], const char peca90[4][4], const char peca180[4][4], const char peca270[4][4]){ //vai inicializar todas as 28 posicoes do array pecas com as matrizes 4x4 correspondentes
     int pecaId = getPosIdPeca(id);
     for(int i=0;i<4;i++){
         for(int j=0;j<4;j++){
@@ -210,13 +200,13 @@ void Tetris::inicializaPeca(char id, const char peca0[4][4], const char peca90[4
     }
 }
 
-void Tetris::setMedidasPeca(int largura, int altura, int &pos){
+void Tetris::setMedidasPeca(int largura, int altura, int &pos){ //pegar a medida de cada peca para auxiliar no AdicionaForma
     larguraPeca[pos] = largura;
     alturaPeca[pos] = altura;
     pos++;
 }
 
-void Tetris::createPecas(){
+void Tetris::createPecas(){ //inicializa peca e medidas, utiliza a funcao inicializaPeca e setMedidasPeca
     int aux = 0;
     char peca_I_0_180[4][4] {
         {'I',' ',' ', ' '},
@@ -392,7 +382,7 @@ void Tetris::resizeGameHeightCapacity(int c, int newcapacity){ //usei como fonte
     delete[] colunaAntiga;
 }
 
-void Tetris::eraseAlturas(int coluna){
+void Tetris::eraseAlturas(int coluna){ //apagar no array de altura a posicao da coluna que sera removida
     int *aux = alturas;
     int cont =0;
     alturas = new int[numColums-1];
@@ -410,29 +400,13 @@ void Tetris::eraseAlturas(int coluna){
     delete[] aux;
 }
 void Tetris::inserePeca(int pos, int coluna, int linha){
-    // for(int i=0;i<alturaPeca[pos];i++){
-    //     resizeGameHeightCapacity(coluna+i,linha+i-(alturaPeca[pos]-1));
-    // }
-
-    // for(int j=0;j<larguraPeca[pos];j++){
-    //     for(int i=0;i<alturaPeca[pos];i++){
-    //         int linhaNova = linha - i;
-    //         if (pecas[pos][j][i] != ' '){
-    //              if (linhaNova >=  alturas[coluna + j])
-    //                 resizeGameHeightCapacity(coluna + j, linhaNova+1);
-    //                 //cout<<"oi"<<endl;
-    //          }
-    //     }
-    // }
     for (int i = 0; i < alturaPeca[pos]; i++){
         for (int j = 0; j < larguraPeca[pos]; j++){
             if (pecas[pos][j][i] != ' '){
                 int colunaNova = coluna+j;
-                int linhaNova =linha-(alturaPeca[pos]-1-i)+1;
-                //cout<<colunaNova<<" "<<linhaNova<<endl;
+                int linhaNova =linha-(alturaPeca[pos]-1-i)+1;//esse calculo eu fui fazendo no papel até dar um resultado geral pros cenários que eu criei
                 if (linhaNova >= alturas[coluna + j]){
                     resizeGameHeightCapacity(coluna + j, linhaNova);
-                    //cout<<"coluna "<<coluna+j<<"para altura tal "<<i<<endl;
                 }
             }
         }
@@ -441,18 +415,19 @@ void Tetris::inserePeca(int pos, int coluna, int linha){
     for (int i = 0; i < alturaPeca[pos]; i++){
         for (int j = 0; j < larguraPeca[pos]; j++){
             if (pecas[pos][j][i] != ' '){
-                int linhaAux = i +abs(alturaPeca[pos]-1-linha);
+                int linhaAux = i +abs(alturaPeca[pos]-1-linha);//esse calculo eu fui fazendo no papel até dar um resultado geral pros cenários que eu criei
                 jogo[coluna + j][linhaAux] = pecas[pos][j][i];
             }
         }   
     }
 }
 //funcoes publicas, ditas na especificação
+
 char Tetris::get(int colums, int row) const { //retorna um caractere que representa o estado de tal pixel no jogo atual
     if(colums < numColums && row < alturas[colums]) return jogo[colums][row];
     return ' ';
 }
-//esta dando certo depois do teste! 0 erros no valgrind :D
+
 void Tetris::removeColuna(int coluna){ //remove a coluna do jogo (diminuindo, assim, sua largura)
     char *auxColuna = jogo[coluna];
 
@@ -502,21 +477,20 @@ int Tetris::getAltura() const { //retorna a altura maxima do jogo atual
 }
 bool Tetris::adicionaForma(int coluna, int linha, char id, int rotacao){ //retorna se é possível ou não adicionar a peça
     int pos = getPosIdRotacao(id,rotacao);
-    //if(larguraPeca[pos] > numColums) return false;
         for(int i=0;i<alturaPeca[pos];i++){
             for(int j=0;j<larguraPeca[pos];j++){
                 if(pecas[pos][j][i] != ' '){
                     int colunaPeca = coluna+j;
-                    int linhaPeca = linha+i-(alturaPeca[pos]-1); //certo aqui insere peca que esta errado!
-                    if(linhaPeca<0 || colunaPeca<0 || colunaPeca>numColums-1) return false;
-                    if(linhaPeca < alturas[colunaPeca]){
+                    int linhaPeca = linha+i-(alturaPeca[pos]-1); //esse calculo eu fui fazendo no papel até dar um resultado geral pros cenários que eu criei
+                    if(linhaPeca<0 || colunaPeca<0 || colunaPeca>numColums-1) return false; //se estiver fora do "retangulo" do jogo não pode ser inserida.
+                    if(linhaPeca < alturas[colunaPeca]){ //se a altura da peca for maior que a altura da coluna atual não precisa nem fazer o teste se tem espaço vazio já que não existe esse lugar na memória ainda, logo não tem nada lá e é possível encaixar a peça
                         if(jogo[colunaPeca][linhaPeca] != ' ') return false;
                     }
                 } 
             }
         }
 
-    inserePeca(pos,coluna,linha);
+    inserePeca(pos,coluna,linha); //se tudo der certo, vai inserir
 
     return true;
 }
@@ -524,9 +498,9 @@ bool Tetris::adicionaForma(int coluna, int linha, char id, int rotacao){ //retor
 //funcoes para teste
 void Tetris::imprimePeca(){
     char inicio = 'I';
-    cout<<"-------------PECA"<<inicio++<<"-------------"<<endl;
+    cout<<"-------------PECA-------------"<<endl;
     for(int i=0;i<28;i++){
-        if(i%4==0)cout<<"-------------PECA"<<inicio++<<"-------------"<<endl;
+        if(i%4==0)cout<<"-------------PECA-------------"<<endl;
        for(int j=0;j<4;j++){
             for(int k=0;k<4;k++){
                 cout<<pecas[i][j][k]<<" ";
