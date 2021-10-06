@@ -3,18 +3,49 @@
 
 using namespace std;
 
-
 class Aluno {
 public: 
 	Aluno(const string &nome_, int matricula_): nome(nome_), matricula(matricula_) {}
 	const string &getNome() const {return nome;}
 	int getMatricula() const {return matricula;}
-
-
+	bool operator>(const Aluno &other);
+	bool operator<(const Aluno &other);
 private:
 	string nome;
 	int matricula;
 };
+bool Aluno::operator<(const Aluno &other){
+	if(this->getNome() > other.getNome()){
+		return true;
+	}
+	else if(this->getNome() < other.getNome()){
+		return false;
+	}
+	else{
+		if(this->getMatricula() > other.getMatricula()){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+}
+bool Aluno::operator>(const Aluno &other){
+	if(this->getNome() < other.getNome()){
+		return true;
+	}
+	else if(this->getNome() > other.getNome()){
+		return false;
+	}
+	else{
+		if(this->getMatricula() < other.getMatricula()){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+}
 
 ostream& operator<<(ostream &out,const Aluno &a) {
 	out << "(" << a.getNome() << "," << a.getMatricula() << ")";
