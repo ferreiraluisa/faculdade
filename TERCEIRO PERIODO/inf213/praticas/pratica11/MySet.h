@@ -85,6 +85,16 @@ private:
 template<class T>
 MySetIterator<T>  MySetIterator<T>::operator++() {
 	//termine a implementacao desta funcao...
+	if(ptr->right){ //
+		ptr = ptr->right;
+		while(ptr->left) ptr = ptr->left;
+	}
+	else{
+		while(ptr->parent && ptr->parent->right ==ptr) ptr = ptr->parent;
+		ptr = ptr->parent;
+	}
+
+	return *this;
 	//(faca isso sem olhar a implementacao do PVANET...)
 }
 
