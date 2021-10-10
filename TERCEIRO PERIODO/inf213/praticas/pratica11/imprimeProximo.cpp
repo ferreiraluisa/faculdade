@@ -11,7 +11,16 @@ int main(){
             dataBase.insert(number);
         }
         if(tipo=='S'){
-            
+            typename MySet<int>::iterator it = dataBase.find(number);
+            if(it == dataBase.end()){ //end() retorna null, poderia bota
+                cout<<"FALHA"<<endl;
+            }
+            else if(++it == dataBase.end()){
+                cout<<"FALHA"<<endl;
+            }
+            else{
+                cout<<*it<<endl;
+            }
         }
     }
 }
