@@ -34,10 +34,33 @@ HuffManTree::~HuffManTree(){
 
 //funcoes publicas
 void HuffManTree::comprimir(MyVec<bool> &out, const MyVec<char> &in){
-    
+    for(int i=0;i<in.size();i++){
+        MyMap<unsigned char,string>::iterator it = tabelaCodigo.find(in[i]);
+        if(it!=NULL) {
+            for(int j=0;j<(*it).second.size();j++){
+                bool aux = (*it).second[j] == '1';
+                out.push_back(aux);
+            }
+        }
+    }
 }
 void HuffManTree::descomprimir(MyVec<char> &out, const MyVec<bool> &in) const{
-
+    HuffmanNode * aux = root;
+    if(aux->isLeaf()){
+        for(int i=0;i<aux->freq;i++){
+            out.push_back(aux->elem);
+        }   
+    }
+    else{
+        for(int i=0;i<in.size()+1;i++){
+        if(aux->isLeaf()){
+            out.push_back(aux->elem);
+            aux = root;
+        }
+        if(in[i] == false) aux = aux->left;
+        if(in[i] == true) aux = aux->right;
+        }
+    }
 }
 
 
@@ -57,6 +80,10 @@ void HuffManTree::create(){
         rootAux->right = auxDireita;
         rootAux->left = auxEsquerda;
         pq.push(auxPair);
+    }
+    if(pq.size() == 1){
+        root = pq.top().second;
+        pq.pop();
     }
     root = pq.top().second;
 }

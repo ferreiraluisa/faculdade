@@ -53,10 +53,10 @@ class HuffManTree{
 
         //funcoes para teste
         void imprimeBFS() const;
-        MyMap<char, string> tabelaCodigo;
 
     private:
         HuffmanNode *root;
+        MyMap<unsigned char, string> tabelaCodigo;
         MyPriorityQueue<pair<int,HuffmanNode*>> pq; 
         //funcoes auxiliares
         void create();
