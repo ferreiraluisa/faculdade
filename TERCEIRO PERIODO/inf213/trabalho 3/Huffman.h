@@ -11,14 +11,14 @@
 
 class HuffmanNode {
 	public:
-		HuffmanNode(const char &elem_, const int &freq_){
+		HuffmanNode(const unsigned char &elem_, const int &freq_){
             elem = elem_;
             freq = freq_;
             codigo = "";
             left = NULL;
             right = NULL;
         }
-		char elem;
+		unsigned char elem;
         int freq;
         string codigo;
         HuffmanNode *left, *right;
@@ -48,8 +48,8 @@ class HuffManTree{
         ~HuffManTree();
 
 
-        void comprimir(MyVec<bool> &out, const MyVec<char> &in);
-        void descomprimir(MyVec<char> &out, const MyVec<bool> &in) const;
+        void comprimir(MyVec<bool> &out, const MyVec<unsigned char> &in);
+        void descomprimir(MyVec<unsigned char> &out, const MyVec<bool> &in) const;
 
         //funcoes para teste
         void imprimeBFS() const;

@@ -33,7 +33,7 @@ HuffManTree::~HuffManTree(){
 }
 
 //funcoes publicas
-void HuffManTree::comprimir(MyVec<bool> &out, const MyVec<char> &in){
+void HuffManTree::comprimir(MyVec<bool> &out, const MyVec<unsigned char> &in){
     for(int i=0;i<in.size();i++){
         MyMap<unsigned char,string>::iterator it = tabelaCodigo.find(in[i]);
         if(it!=NULL) {
@@ -44,7 +44,7 @@ void HuffManTree::comprimir(MyVec<bool> &out, const MyVec<char> &in){
         }
     }
 }
-void HuffManTree::descomprimir(MyVec<char> &out, const MyVec<bool> &in) const{
+void HuffManTree::descomprimir(MyVec<unsigned char> &out, const MyVec<bool> &in) const{
     HuffmanNode * aux = root;
     if(aux->isLeaf()){
         for(int i=0;i<aux->freq;i++){
@@ -52,14 +52,15 @@ void HuffManTree::descomprimir(MyVec<char> &out, const MyVec<bool> &in) const{
         }   
     }
     else{
-        for(int i=0;i<in.size()+1;i++){
-        if(aux->isLeaf()){
-            out.push_back(aux->elem);
-            aux = root;
+        for(int i=0;i<in.size();i++){
+            if(aux->isLeaf()){
+                out.push_back(aux->elem);
+                aux = root;
         }
         if(in[i] == false) aux = aux->left;
         if(in[i] == true) aux = aux->right;
         }
+        out.push_back(aux->elem);
     }
 }
 
@@ -106,7 +107,7 @@ void HuffManTree::geraMap(HuffmanNode * rootNode){
         geraMap(rootNode->right);   
     }
     if(rootNode->isLeaf()){ //se for uma folha, temos que acrescentar o caracter e o seu respectivo codigo na nossa tabela
-        pair<char,string> aux;
+        pair<unsigned char,string> aux;
         aux.first = rootNode->elem;
         aux.second = rootNode->codigo;
         //cout<<aux.first<<" "<<aux.second<<endl;
