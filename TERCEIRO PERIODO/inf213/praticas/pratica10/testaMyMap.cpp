@@ -5,16 +5,16 @@ using namespace std;
 int main() {
 	MyMap<string,int> m;
 
-	m["abc"] = 8;
-	m["salles"] = 52700;
-	cout << "Tamanho do map: " << m.size() << endl;
-	cout << m["abc"] << endl;
-	cout << m["salles"] << endl;
+	// m["abc"] = 8;
+	// m["salles"] = 52700;
+	// cout << "Tamanho do map: " << m.size() << endl;
+	// cout << m["abc"] << endl;
+	// cout << m["salles"] << endl;
 
-	m["abc"] = 0;
- 	cout << "Tamanho do map: " << m.size() << endl;
-	cout << m["abc"] << endl;
-	cout << m["salles"] << endl;
+	// m["abc"] = 0;
+ 	// cout << "Tamanho do map: " << m.size() << endl;
+	// cout << m["abc"] << endl;
+	// cout << m["salles"] << endl;
 
 	//mapas podem ser usados ate para mapear inteiros em algum outro tipo.
 	//exemplo: um mapa de inteiro para strings
@@ -33,6 +33,9 @@ int main() {
 
 	nomeAluno[52700] = "Salles";
 	nomeAluno[100000] = "Ligia";
+	MyMap<int,string>::iterator it = nomeAluno.find(52700);
+	cout<<(*it).second<<endl;
+	
 
 	cout << "Aluno com matricula 52700: " << nomeAluno[52700] << endl;
 

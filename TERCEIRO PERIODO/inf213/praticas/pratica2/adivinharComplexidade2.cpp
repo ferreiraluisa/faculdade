@@ -40,7 +40,7 @@ Exemplo de entrada:
 Saida esperada:
 2 0 3 1
 */
-int main(int argc, char**argv) {
+int main(int argc, char***argv) {
 	//sem srand, para sempre usarmos a mesma semente...
 	int n = atoi(argv[1]);
 
