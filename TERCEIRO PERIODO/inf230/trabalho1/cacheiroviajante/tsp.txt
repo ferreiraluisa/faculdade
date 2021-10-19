@@ -1,0 +1,115 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+using namespace std;
+
+int calcularGasto(vector<vector<int>> graph,int numeros[], int n){
+    int distancia = 0;
+    for(int i=0;i<n;i++){
+        if(i == n-1) distancia += graph[numeros[i]][numeros[0]];
+        else distancia += graph[numeros[i]][numeros[i+1]];
+    }
+    return distancia;
+}
+
+int menor(vector<int> distancias){
+    int menor = distancias[0];
+    for(int i = 0;i< distancias.size();i++) if(distancias[i] < menor) menor = distancias[i];
+    return menor;
+}
+
+void geraPermutacao(int *vetor,vector<int> distancias, vector<vector<int>> graph, int inicio, int tamanho)
+{
+	if(inicio == tamanho)
+	{
+		for(int i = 0; i <= tamanho; i++)
+			printf("%d ", vetor[i]);
+		printf("\n");
+	}
+	else
+	{
+		for(int i = inicio; i <= tamanho; i++)
+		{
+			swap(vetor, inicio, i);
+			permuta(vetor, distancias, graph, inicio + 1, tamanho);
+			swap(vetor, inicio, i); // backtracking
+		}
+	}
+}
+
+}
+
+int main(int argc, char const *argv[])
+{
+    int n;
+    int cont = 0;
+    vector<vector<int>> graph;
+    vector<int> distancias;
+    // ifstream file(argv[1]);
+    // string line;
+    // bool sim =false;
+    vector<int> auxVec;
+    // if (file.is_open()){
+    //     while (! file.eof()){ 
+    //         getline(file,line); 
+    //         if(cont == 0) n = stoi(line);
+    //         else{
+    //             for(int i=0;i<line.size();i++){
+    //                 int pos = 0;
+    //                 string aux;
+    //                 if(line[i]!=' ' && line[i]!='\n'){
+    //                     while(i+pos+i<n && line[i+pos+1] != ' ' && line[i+pos+i]){
+    //                         aux[pos] = line[i];
+    //                         pos++;
+    //                         sim = true;
+    //                     }
+    //                     if(sim) auxVec.push_back(atoi(aux));
+    //                     else auxVec.push_back(atoi(&line[i]));
+    //                 }
+    //             }
+    //             cout<<endl;
+    //             graph.push_back(auxVec);
+    //             auxVec = {};
+    //         }
+    //         cont++;
+    //     }
+    //     file.close();
+    // }
+    // for(int i=0;i<n;i++){
+    //     for(int j=0;j<n;j++){
+    //         cout<<graph[i][j]<<" ";
+    //     }
+    //     cout<<endl;
+    // }
+    auxVec.push_back(0);
+    auxVec.push_back(7);
+    auxVec.push_back(8);
+    auxVec.push_back(7);
+    graph.push_back(auxVec);
+    auxVec = {};
+    auxVec.push_back(5);
+    auxVec.push_back(0);
+    auxVec.push_back(8);
+    auxVec.push_back(8);
+    graph.push_back(auxVec);
+    auxVec = {};
+    auxVec.push_back(9);
+    auxVec.push_back(6);
+    auxVec.push_back(0);
+    auxVec.push_back(9);
+    graph.push_back(auxVec);
+    auxVec = {};
+    auxVec.push_back(10);
+    auxVec.push_back(7);
+    auxVec.push_back(10);
+    auxVec.push_back(0);
+    graph.push_back(auxVec);
+    
+    
+    int v[4] = {1,2,3,4};
+
+	geraPermutacao(v,distancias, graph, 0, n - 1);
+
+    //cout<<menor(distancias)<<endl;
+}

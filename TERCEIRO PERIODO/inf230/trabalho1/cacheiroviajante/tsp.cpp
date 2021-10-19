@@ -71,12 +71,6 @@ int main(int argc, char const *argv[])
     for(int i=0;i<qtdeCidades;i++) v[i] = i;
     
 
-    // for(int i=0;i<qtdeCidades;i++){
-    //     for(int j=0;j<qtdeCidades;j++){
-    //         cout<<graph[i][j]<<" ";
-    //     }
-    //     cout<<endl;
-    // }
     geraPermutacao(v,graph,melhorRota,0,qtdeCidades-1,&menor);
 
     for(int i=0;i<melhorRota.size();i++){
