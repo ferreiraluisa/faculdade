@@ -10,3 +10,7 @@ perguntas/respostas sobre o trabalho no moodle
 https://www.youtube.com/watch?v=JsTptu56GM8
 https://www.youtube.com/watch?v=dM6us854Jk0
 
+(comentários sobre a implementação estão feitos no código)
+
+Análise do trabalho:
+Fiz vários testes para comprimir arquivos textos, html, pdf e até jpg. A média de compressão de todos esses testes foram 65~68% do arquivo original, em arquivos muito pequenos a diferença não foi tão grande.
