@@ -3,5 +3,10 @@ Eu li as regras!
 Aluna: Luísa de Souza Ferreira
 Matrícula : 102026
 
+Fontes: 
+aulas de inf 213(especialmente do dia 05/10 e dia 11/10)
+arquivos da prática(MySet.h e MyPriorityQueue.h)
+perguntas/respostas sobre o trabalho no moodle
+https://www.youtube.com/watch?v=JsTptu56GM8
+https://www.youtube.com/watch?v=dM6us854Jk0
 
-1 0 1 1 1 0 1 1 1 0 0 0 0 0 1 0 
