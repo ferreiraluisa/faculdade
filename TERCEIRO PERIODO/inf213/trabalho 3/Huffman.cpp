@@ -16,9 +16,20 @@ HuffManTree::HuffManTree(int freqs[256]){
         }
     }
     create();
-    geraMap(root);
 }
-//nao achei necessario para esse trabalho fazer construtor e operador de cópia porque não me foram útil ao longo do desenvolvimento do trabalho, já que não faço nenhuma atribuição(só uso apenas uma HuffmanTree)
+//construtor de cópia
+HuffManTree::HuffManTree(const HuffManTree &other){
+    *this = other;
+}
+//operador de cópia
+HuffManTree & HuffManTree::operator=(const HuffManTree &other){
+    if(this==&other) return *this; 
+	destroy(root);
+    pq = other.pq;
+    create();
+    
+	return *this;
+}
 //destrutor
 HuffManTree::~HuffManTree(){
     destroy(root);
@@ -87,6 +98,7 @@ void HuffManTree::create(){
         pq.pop();
     }
     root = pq.top().second;
+    geraMap(root);
 }
 
 //função recursiva que deleta nodo a nodo

@@ -41,6 +41,10 @@ class HuffManTree{
         HuffManTree();
         //construtor
         HuffManTree(int freqs[256]);
+        //construtor de cópia
+        HuffManTree(const HuffManTree &other);
+        //operador de cópia
+        HuffManTree & operator=(const HuffManTree &);
         //destrutor
         ~HuffManTree();
 

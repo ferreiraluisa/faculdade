@@ -247,7 +247,6 @@ typename MySet<T>::iterator MySet<T>::find(const T&elem) {
 
 
 #include "MyQueue.h"
-
 /*
 template  <class T>
 void MySet<T>::imprimeBFS() const { //um nivel por vez..
