@@ -42,7 +42,7 @@ template <class KEY, class VALUE, class HASH>
 void MyHashMap<KEY,VALUE,HASH>::reHash(const int &newSize){
 	MyVec<MyList2<std::pair<KEY,VALUE> > > auxTable = table;
 	int oldSize = auxTable.size();
-	table.resize(newSize);
+	table = MyVec<MyList2<std::pair<KEY,VALUE> >>(newSize);
 	numElems = 0;
 	tableSize = newSize;
 	
