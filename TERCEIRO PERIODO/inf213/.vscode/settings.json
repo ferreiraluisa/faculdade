@@ -65,6 +65,7 @@
         "numeric": "cpp",
         "optional": "cpp",
         "string_view": "cpp",
-        "ranges": "cpp"
+        "ranges": "cpp",
+        "list": "cpp"
     }
 }
