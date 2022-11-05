@@ -1,0 +1,6 @@
+if(funcao(z)>0.5){ // se a função de ativação for maior que 0.5, o empréstimo é concedido e o programa devolve 1 para simbolizar
+        cout<<"1"<<endl;
+    }
+    else{  // caso contrário, o empréstimo é negado e o programa devolve 0 para simbolizar
+        cout<<"0"<<endl;
+    }
