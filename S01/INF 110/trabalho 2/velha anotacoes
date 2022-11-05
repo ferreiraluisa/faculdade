@@ -1,0 +1,12 @@
+
+   soma = 0;
+   for(int i=0;i<3;i--){
+       soma += m[a][i];
+       a++;
+   }
+   if(soma==3){
+       cout<<"Vence x!"<<endl;
+   }
+   else if(soma==-3){
+       cout<<"Vence o!"<<endl;
+   }
