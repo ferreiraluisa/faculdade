@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "utility": "cpp",
+        "fstream": "cpp",
+        "ostream": "cpp",
+        "vector": "cpp",
+        "algorithm": "cpp",
+        "list": "cpp",
+        "cstdlib": "cpp"
+    }
+}
