@@ -1,0 +1,36 @@
+program P
+    final int size = 10;
+
+    int[] numeros;
+{
+    void main()
+        int x, i, soma, media;
+    { //---------- Inicializar valores ------------
+        numeros = new int[size];
+        i = 0;
+        while (i < size) {
+            numeros[i] = 0; 
+            i = i + 1;
+        }
+    //------------ Ler valores e armazenar uma sequências de números > 0 -------------
+        soma = 0; i = 0;
+        read(x);
+        while(x >= 0){
+            numeros[i] = x;
+            soma = soma + x;
+            i = i + 1;
+            read(x);
+        }
+        media = soma/i;
+        //print(media);
+    // ------------ Imprimir valores da sequência acima da média -------------
+        i = 0;
+        while(i < size){
+            if(numeros[i] > media){
+                print(numeros[i]);
+            }
+            i = i + 1;
+        }
+}
+
+}

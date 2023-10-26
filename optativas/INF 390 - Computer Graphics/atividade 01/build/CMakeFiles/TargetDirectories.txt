@@ -1,0 +1,6 @@
+/home/luisa/Documents/faculdade/optativas/INF 390 - Computer Graphics/atividade 01/build/CMakeFiles/rebuild_cache.dir
+/home/luisa/Documents/faculdade/optativas/INF 390 - Computer Graphics/atividade 01/build/CMakeFiles/edit_cache.dir
+/home/luisa/Documents/faculdade/optativas/INF 390 - Computer Graphics/atividade 01/build/CMakeFiles/atividade_01.dir
+/home/luisa/Documents/faculdade/optativas/INF 390 - Computer Graphics/atividade 01/build/src/CMakeFiles/rebuild_cache.dir
+/home/luisa/Documents/faculdade/optativas/INF 390 - Computer Graphics/atividade 01/build/src/CMakeFiles/edit_cache.dir
+/home/luisa/Documents/faculdade/optativas/INF 390 - Computer Graphics/atividade 01/build/src/CMakeFiles/glad.dir

@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/atividade_03.dir/src/main.cpp.o  -o atividade_03  glad/libglad.a -lglfw -ldl /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so 

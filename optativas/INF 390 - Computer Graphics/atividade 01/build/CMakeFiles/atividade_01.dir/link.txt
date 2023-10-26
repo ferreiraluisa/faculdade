@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/atividade_01.dir/src/main.cpp.o src/CMakeFiles/glad.dir/glad.c.o  -o atividade_01  -lglfw -ldl 

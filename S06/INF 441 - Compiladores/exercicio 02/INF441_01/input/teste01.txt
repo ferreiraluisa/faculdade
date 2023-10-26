@@ -1,0 +1,6 @@
+abc def
+while if class
+123 // exemplo de comentário de linha
+456.78 /* comentário em mais
+de uma linha */
+(a;b)

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>INF 493 - Ciência de Dados</title>
+    <link rel="stylesheet" type="text/css" href="style/geral.css">
+</head>
+<body>
+	<div class="cabecalho">
+	    <img src="static/logodpi.jpg" alt="Logo DPI" class="logo">
+	    <span class="texto-cabecalho"> Informações gerais da disciplina </span>
+	    <img src="static/logoufv.png" alt="Logo UFV" class="logo">
+	</div>
+
+	<h1 class="titulo">INF 493 - Tópicos Especiais III: Ciência de Dados</h1>
+	
+	<div class="info-base">
+	    <div >
+	    	    <span class="info-base-titulo"> Informações Gerais</span>
+		    <ul>
+			<li><span class="campo">Centro:</span> <a href=https://cce.ufv.br/ target="_blank">Ciências exatas</a></li>
+			<li><span class="campo">Departamento:</span> <a href=https://www2.dpi.ufv.br/ target="_blank">Departamento de Informática</a></li>
+		        <li><span class="campo">Currículo:</span><a href=https://ccp.ufv.br/matriz-2020-ou-posterior/ target="_blank"> 2020</a></li>
+		        <li><span class="campo">Créditos:</span> 4</li>
+		        <li><span class="campo">Carga horária total:</span> 60h</li>
+		        <li><span class="campo">Carga horária teórica semanal:</span> 4h</li>
+		        <li><span class="campo">Carga horária prática semanal:</span> 0h</li>
+		        <li><span class="campo">Semestre de oferta:</span> <span id="romano">II</span></li>
+		        <li><span class="campo">Obrigatória:</span> Não</li>	
+		    </ul>
+	    </div>
+	</div>
+	<div class="info-textual">
+	    <div class="info-textual-campo info-textual-titulo">
+		    Objetivos
+	    </div>
+	    <div class="info-textual-campo info-textual-conteudo">
+	        <p>
+	            Prover ao estudante uma visão geral da área de Ciência de Dados (Data Science), com foco nas etapas de preparação de dados, análise de resultados e modelos e em aplicações reais ou realísticas. Relacionar a visão ampla do conceito de Ciência de Dados com as áreas correlatas de Aprendizado de Máquina e Mineração de Dados. Fornecer ao estudante um repertório de técnicas que o possibilite atuar em contextos envolvendo suporte à tomada de decisões, seja na área acadêmica ou não.
+	        </p>
+	    </div>
+        </div>
+	<div class="info-textual">
+	    <div class="info-textual-campo info-textual-titulo">
+		    Ementa
+	    </div>
+	    <div class="info-textual-campo info-textual-conteudo">
+	        <p>
+	            Introdução e terminologia básica. Fundamentos de análise de dados. Fundamentos de visualização de dados. Técnicas de pré-processamento e preparação de dados. Redução de dimensionalidade e seleção de atributos. Análise de Agrupamentos. Classificação. Regressão. Comitês. Explicabilidade de modelos preditivos. Outras técnicas relacionadas. Áreas de aplicação modernas.
+	        </p>
+	    </div>
+        </div>
+	<div class="info-textual">
+	    <div class="info-textual-campo info-textual-titulo">
+		    Pré-requisitos
+	    </div>
+	    <div class="info-textual-campo info-textual-conteudo">
+	        <p>
+	         	INF 213 - Estruturas de Dados
+        		EST 105 - Iniciação à Estatística
+	        </p>
+	    </div>
+        </div>
+	<div class="info-textual">
+	    <div class="info-textual-campo info-textual-titulo">
+		    Co-requisitos
+	    </div>
+	    <div class="info-textual-campo info-textual-conteudo">
+	        <p>
+	            Não há
+	        </p>
+	    </div>
+        </div>
+	<div class="info-base">
+	    <div class="info-base-titulo">
+		    Conteúdo Pragmático
+	    </div>
+	    <div class="capitulo">
+	        <ol >
+		    <li class="capitulo-li">Introdução</li>
+		        <ol class="topico">
+			    <li >O que é Ciência de Dados (Data Science)</li>
+			    <li >Conceitos importantes: Data Mining versus Machine Learning versus Data Science versus Inteligência Artificial</li>
+			    <li >Visão geral do curso e suas lições</li>
+			    </ol>
+		    <li class="capitulo-li">Fundamentos de análise de dados</li>
+			<ol>
+			    <li class="topico">Representação de Dados</li>
+			    <li class="topico">Tipos de atributos</li>
+			    <li class="topico">Fundamentos de Estatística</li>
+			    <li class="topico">Visualização de dados</li>
+			    <li class="topico">Análise Uni e Multivariada</li>
+			    <li class="topico">Introdução aos testes de hipótese</li>
+			</ol>
+		    <li class="capitulo-li">Fundamentos de análise de dados</li>
+			<ol>
+			    <li class="topico">Representação de Dados</li>
+			    <li class="topico">Tipos de atributos</li>
+			    <li class="topico">Fundamentos de Estatística</li>
+			    <li class="topico">Visualização de dados</li>
+			    <li class="topico">Análise Uni e Multivariada</li>
+			    <li class="topico">Introdução aos testes de hipótese</li>
+			</ol>
+		    <li class="capitulo-li">Pré-processamento e preparação de dados</li>
+			<ol>
+			    <li class="topico">Normalização (escalonamento e padronização)</li>
+			    <li class="topico">Identificação e remoção de dados discrepantes</li>
+			    <li class="topico">Tratamento de valores faltantes</li>
+			    <li class="topico">Categorização de dados numéricos</li>
+			    <li class="topico">Pré-processamento para dados categóricos</li>
+			</ol>
+		    <li class="capitulo-li">Principais tarefas de mineração de dados e aprendizado de máquina</li>
+		        <ol>
+			    <li class="topico">Agrupamentos (clusters)</li>
+			    <li class="topico">Classificação</li>
+			    <li class="topico">Regressão</li>
+			    <li class="topico">Metologias de treinamento</li>
+			    <li class="topico">Principais algoritmos</li>
+			    <li class="topico">Métricas de avaliação</li>
+			    <li class="topico">Comparação de modelos</li>
+			    <li class="topico">Validação Cruzada</li>
+			    <li class="topico">ANOVA</li>
+			    <li class="topico"class="topico">Casos Especiais
+				<ul>
+				    <li>Overfitting e Underfitting</li>
+				    <li>Classes raras</li>
+				    <li>Multirrótulo</li>
+				    <li>Outros</li>
+				</ul>
+			    </li>
+			</ol>
+		    <li class="capitulo-li">Seleção de atributos e redução de dimensionalidade</li>
+		    <li class="capitulo-li">Comitês</li>
+		    <li class="capitulo-li">Explicabilidade de modelos</li>
+		    <li class="capitulo-li">Outros tipos de aprendizado</li>
+			<ol>
+			    <li class="topico">Semi-supervisionado</li>	
+			    <li class="topico">Séries temporais</li>
+			    <li class="topico">Aprendizado por reforço</li>	
+			    <li class="topico">Regras de Associação</li>	
+			</ol>
+		    <li class="capitulo-li">Algumas áreas de aplicação modernas</li>
+			<ol>
+			    <li class="topico">Processamento de linguagem natural</li>	
+			    <li class="topico">Visão computacional</li>
+			    <li class="topico">Modelos generativos</li>	
+			    <li class="topico">Federated Learning</li>	
+			</ol>		
+					
+		</ol>
+	    </div>
+        </div>
+        <table class="avaliacoes">
+        <thead>
+            <tr>
+                <th class="celulas titulotabela" colspan="3">Avaliações</th>
+            </tr>
+            <tr>
+                <th class="celulas subcabecalho">Tipo</th>
+                <th class="celulas subcabecalho">Percentual da Nota</th>
+                <th class="celulas subcabecalho">Quantidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="celulas dadotxt">Questionário</td>
+                <td class="celulas dadonum">6%</td>
+                <td class="celulas dadonum">5</td>
+            </tr>
+            <tr>
+                <td class="celulas dadotxt">Trabalho Prático</td>
+                <td class="celulas dadonum">10%</td>
+                <td class="celulas dadonum">3</td>
+            </tr>
+            <tr>
+                <td class="celulas dadotxt">Projeto Final</td>
+                <td class="celulas dadonum">40%</td>
+                <td class="celulas dadonum">1</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
+</body>
+</html>
+

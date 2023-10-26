@@ -1,0 +1,91 @@
+data 2
+const 10
+putstatic 0
+jmp main
+label main
+enter 0,4
+getstatic 0
+newarray 1
+putstatic 1
+const 0
+store 1
+label loop0
+load 1
+getstatic 0
+jlt beginloop0
+jmp endloop0
+label beginloop0
+getstatic 1
+load 1
+const 0
+astore
+load 1
+const 1
+add
+store 1
+jmp loop0
+label endloop0
+const 0
+store 2
+const 0
+store 1
+load 0
+read
+store 0
+label loop1
+load 0
+const 0
+jge beginloop1
+jmp endloop1
+label beginloop1
+getstatic 1
+load 1
+load 0
+astore
+load 2
+load 0
+add
+store 2
+load 1
+const 1
+add
+store 1
+load 0
+read
+store 0
+jmp loop1
+label endloop1
+load 2
+load 1
+div
+store 3
+const 0
+store 1
+label loop2
+load 1
+getstatic 0
+jlt beginloop2
+jmp endloop2
+label beginloop2
+getstatic 1
+load 1
+aload
+load 3
+jgt if3
+jmp endif3
+label if3
+getstatic 1
+load 1
+aload
+const 1
+print
+label endif3
+load 1
+const 1
+add
+store 1
+jmp loop2
+label endloop2
+label endmethod0
+exit
+return
