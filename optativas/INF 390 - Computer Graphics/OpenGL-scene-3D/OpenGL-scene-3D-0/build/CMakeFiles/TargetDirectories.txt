@@ -1,9 +1,0 @@
-/data/Computação gráfica/exemplos/Aula-12/OpenGL-scene-3D-0/build/CMakeFiles/my_opengl_project.dir
-/data/Computação gráfica/exemplos/Aula-12/OpenGL-scene-3D-0/build/CMakeFiles/edit_cache.dir
-/data/Computação gráfica/exemplos/Aula-12/OpenGL-scene-3D-0/build/CMakeFiles/rebuild_cache.dir
-/data/Computação gráfica/exemplos/Aula-12/OpenGL-scene-3D-0/build/glad/CMakeFiles/glad.dir
-/data/Computação gráfica/exemplos/Aula-12/OpenGL-scene-3D-0/build/glad/CMakeFiles/edit_cache.dir
-/data/Computação gráfica/exemplos/Aula-12/OpenGL-scene-3D-0/build/glad/CMakeFiles/rebuild_cache.dir
-/data/Computação gráfica/exemplos/Aula-12/OpenGL-scene-3D-0/build/glm/CMakeFiles/glm_shared.dir
-/data/Computação gráfica/exemplos/Aula-12/OpenGL-scene-3D-0/build/glm/CMakeFiles/edit_cache.dir
-/data/Computação gráfica/exemplos/Aula-12/OpenGL-scene-3D-0/build/glm/CMakeFiles/rebuild_cache.dir
